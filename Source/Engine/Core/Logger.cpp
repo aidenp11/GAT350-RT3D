@@ -2,7 +2,7 @@
 #include "FileIO.h"
 #include <iostream>
 
-namespace nc
+namespace lady
 {
 	bool Logger::Log(LogLevel logLevel, const std::string& filename, int line)
 	{

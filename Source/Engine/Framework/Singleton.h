@@ -1,6 +1,6 @@
 #pragma once
 
-namespace nc
+namespace lady
 {
 	// Design pattern to ensure there is only one instance of an object and accessed through static method Instance().
 	// https://en.wikipedia.org/wiki/Singleton_pattern

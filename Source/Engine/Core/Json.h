@@ -6,14 +6,14 @@
 #include <string>
 #include <vector>
 
-#define READ_DATA(value, data)						nc::Json::Read(value, #data, data)
-#define READ_DATA_REQUIRED(value, data)				nc::Json::Read(value, #data, data, true)
-#define READ_NAME_DATA(value, name, data)			nc::Json::Read(value, name, data)
-#define READ_NAME_DATA_REQUIRED(value, name, data)	nc::Json::Read(value, name, data, true)
+#define READ_DATA(value, data)						lady::Json::Read(value, #data, data)
+#define READ_DATA_REQUIRED(value, data)				lady::Json::Read(value, #data, data, true)
+#define READ_NAME_DATA(value, name, data)			lady::Json::Read(value, name, data)
+#define READ_NAME_DATA_REQUIRED(value, name, data)	lady::Json::Read(value, name, data, true)
 #define HAS_DATA(value, data)						value.HasMember(#data)
 #define GET_DATA(value, data)						value[#data]
 
-namespace nc
+namespace lady
 {
 	// Functions to load data from a JSON file.
 	class Json

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace nc
+namespace lady
 {
 	class Rect
 	{

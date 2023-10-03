@@ -1,7 +1,7 @@
 #include "EventManager.h"
 #include "Core/Logger.h"
 
-namespace nc
+namespace lady
 {
 	void EventManager::Update(float dt)
 	{

@@ -1,7 +1,7 @@
 #include "Time.h"
 #include "Math/MathUtils.h"
 
-namespace nc
+namespace lady
 {
 	void Time::Tick()
 	{

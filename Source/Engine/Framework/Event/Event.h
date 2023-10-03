@@ -2,7 +2,7 @@
 #include <string>
 #include <variant>
 
-namespace nc
+namespace lady
 {
 	// Event information including the event id and the data to pass to the objects receiving the event.
 	class Event

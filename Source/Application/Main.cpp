@@ -9,13 +9,13 @@ int main(int argc, char* argv[])
 {
 	INFO_LOG("Initialize Engine...")
 
-	nc::MemoryTracker::Initialize();
-	nc::seedRandom((unsigned int)time(nullptr));
-	nc::setFilePath("assets");
+	lady::MemoryTracker::Initialize();
+	lady::seedRandom((unsigned int)time(nullptr));
+	lady::setFilePath("assets");
 
 	ENGINE.Initialize();
 
-	auto world = make_unique<nc::World01>();
+	auto world = make_unique<lady::World01>();
 	world->Initialize();
 
 	// main loop
@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 		world->Update(ENGINE.GetTime().GetDeltaTime());
 
 		// draw
-		world->Draw(*ENGINE.GetSystem<nc::Renderer>());
+		world->Draw(*ENGINE.GetSystem<lady::Renderer>());
 	}
 
 	world->Shutdown();

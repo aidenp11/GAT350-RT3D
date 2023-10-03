@@ -1,7 +1,7 @@
 #pragma once
 #include "PhysicsComponent.h"
 
-namespace nc
+namespace lady
 {
 	class EnginePhysicsComponent : public PhysicsComponent
 	{

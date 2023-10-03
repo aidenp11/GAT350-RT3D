@@ -1,7 +1,7 @@
 #pragma once
 #include "Vector2.h"
 
-namespace nc
+namespace lady
 {
 	class Matrix22
 	{

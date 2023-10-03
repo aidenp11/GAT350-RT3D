@@ -5,7 +5,7 @@
 #include "Components/Component.h"
 #include <memory>
 
-namespace nc
+namespace lady
 {
 	// Actors are objects that hold components to define their behavior and have a transform.
 	// Actors are contained in a scene and are updated and drawn each frame.
@@ -15,7 +15,7 @@ namespace nc
 		CLASS_DECLARATION(Actor)
 
 		Actor() = default;
-		Actor(const nc::Transform& transform) :
+		Actor(const lady::Transform& transform) :
 			transform{ transform }
 		{}
 		Actor(const Actor& other);
@@ -27,7 +27,7 @@ namespace nc
 		virtual void OnDestroy() override;
 
 		virtual void Update(float dt);
-		virtual void Draw(nc::Renderer& renderer);
+		virtual void Draw(lady::Renderer& renderer);
 
 		void AddComponent(std::unique_ptr<Component> component);
 		template<typename T>

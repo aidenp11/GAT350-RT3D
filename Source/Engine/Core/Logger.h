@@ -7,10 +7,10 @@
 
 #ifdef _DEBUG
 // if Debug Configuration, log messages
-#define INFO_LOG(message)		{ if (nc::Logger::Instance().Log(nc::LogLevel::Info, __FILE__, __LINE__))		{ nc::Logger::Instance() << message << "\n"; } }
-#define WARNING_LOG(message)	{ if (nc::Logger::Instance().Log(nc::LogLevel::Warning, __FILE__, __LINE__))	{ nc::Logger::Instance() << message << "\n"; } }
-#define ERROR_LOG(message)		{ if (nc::Logger::Instance().Log(nc::LogLevel::Error, __FILE__, __LINE__))		{ nc::Logger::Instance() << message << "\n"; } }
-#define ASSERT_LOG(condition, message) { if (!condition && nc::Logger::Instance().Log(nc::LogLevel::Assert, __FILE__, __LINE__)) { nc::Logger::Instance() << message << "\n"; } assert(condition); }
+#define INFO_LOG(message)		{ if (lady::Logger::Instance().Log(lady::LogLevel::Info, __FILE__, __LINE__))		{ lady::Logger::Instance() << message << "\n"; } }
+#define WARNING_LOG(message)	{ if (lady::Logger::Instance().Log(lady::LogLevel::Warning, __FILE__, __LINE__))	{ lady::Logger::Instance() << message << "\n"; } }
+#define ERROR_LOG(message)		{ if (lady::Logger::Instance().Log(lady::LogLevel::Error, __FILE__, __LINE__))		{ lady::Logger::Instance() << message << "\n"; } }
+#define ASSERT_LOG(condition, message) { if (!condition && lady::Logger::Instance().Log(lady::LogLevel::Assert, __FILE__, __LINE__)) { lady::Logger::Instance() << message << "\n"; } assert(condition); }
 #else
 // if not Debug Configuration, don't log messages
 #define INFO_LOG(message)		{}
@@ -19,7 +19,7 @@
 #define ASSERT_LOG(condition, message)		{}
 #endif // _DEBUG
 
-namespace nc
+namespace lady
 {
 	enum class LogLevel
 	{

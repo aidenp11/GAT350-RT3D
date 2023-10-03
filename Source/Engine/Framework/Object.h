@@ -20,7 +20,7 @@
 	classname::Register register_class;
 
 
-namespace nc
+namespace lady
 {
 	// Base class of Actors in the engine.
 	class Object

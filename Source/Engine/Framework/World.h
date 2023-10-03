@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 
-namespace nc
+namespace lady
 {
 	class Scene;
 	class Renderer;

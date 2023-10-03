@@ -6,9 +6,9 @@
 #include <vector>
 #include <memory>
 
-#define ENGINE nc::Engine::Instance()
+#define ENGINE lady::Engine::Instance()
 
-namespace nc
+namespace lady
 {
 	// A singleton to manage engine systems and engine related functionality.
 	class Engine : public Singleton<Engine>

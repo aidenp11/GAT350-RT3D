@@ -3,7 +3,7 @@
 #include "Renderer.h"
 #include <SDL2-2.28.4/include/SDL_ttf.h>
 
-namespace nc
+namespace lady
 {
 	Text::~Text()
 	{

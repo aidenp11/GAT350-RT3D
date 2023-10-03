@@ -3,7 +3,7 @@
 #include <fstream>
 #include <iostream>
 
-namespace nc
+namespace lady
 {
 	std::string getFilePath()
 	{

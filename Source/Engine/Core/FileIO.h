@@ -2,7 +2,7 @@
 #include <filesystem>
 #include <string>
 
-namespace nc
+namespace lady
 {
 	// Returns the file path of the current directory. (example: C:\Project\Code)
 	std::string getFilePath();

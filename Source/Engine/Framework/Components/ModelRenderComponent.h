@@ -2,7 +2,7 @@
 #include "RenderComponent.h"
 #include "Renderer/Model.h"
 
-namespace nc
+namespace lady
 {
 	class ModelRenderComponent : public RenderComponent
 	{

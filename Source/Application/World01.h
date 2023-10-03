@@ -2,7 +2,7 @@
 #include "Framework/World.h"
 #include "Core/Math/Vector2.h"
 
-namespace nc
+namespace lady
 {
 	class World01 : public World
 	{

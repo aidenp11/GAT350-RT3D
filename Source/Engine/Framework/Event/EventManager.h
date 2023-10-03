@@ -5,11 +5,11 @@
 #include <list>
 #include <functional>
 
-#define EVENT_SUBSCRIBE(id, function)	nc::EventManager::Instance().Subscribe(id, this, std::bind(&function, this, std::placeholders::_1))
-#define EVENT_UNSUBSCRIBE(id)			nc::EventManager::Instance().Unsubscribe(id, this)
-#define EVENT_DISPATCH(id, data)		nc::EventManager::Instance().DispatchEvent(id, data)
+#define EVENT_SUBSCRIBE(id, function)	lady::EventManager::Instance().Subscribe(id, this, std::bind(&function, this, std::placeholders::_1))
+#define EVENT_UNSUBSCRIBE(id)			lady::EventManager::Instance().Unsubscribe(id, this)
+#define EVENT_DISPATCH(id, data)		lady::EventManager::Instance().DispatchEvent(id, data)
 
-namespace nc
+namespace lady
 {
 	class IEventListener
 	{

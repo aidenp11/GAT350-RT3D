@@ -1,7 +1,7 @@
 #include "CircleCollisionComponent.h"
 #include "Framework/Actor.h"
 
-namespace nc
+namespace lady
 {
     CLASS_DEFINITION(CircleCollisionComponent)
 

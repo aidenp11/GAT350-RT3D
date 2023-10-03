@@ -1,7 +1,7 @@
 #include "Memory.h"
 #include <iostream>
 
-namespace nc
+namespace lady
 {
 	bool MemoryTracker::Initialize()
 	{

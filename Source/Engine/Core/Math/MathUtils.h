@@ -2,7 +2,7 @@
 #include <cmath>
 #include <utility>
 
-namespace nc
+namespace lady
 {
 	constexpr float Pi = 3.14159265359f;
 	constexpr float TwoPi = 6.28318530718f;

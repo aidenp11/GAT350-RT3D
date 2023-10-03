@@ -2,7 +2,7 @@
 #include "Renderer/Renderer.h"
 #include "Input/InputSystem.h"
 
-namespace nc
+namespace lady
 {
 	bool Engine::Initialize()
 	{

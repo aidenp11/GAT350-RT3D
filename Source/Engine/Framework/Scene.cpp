@@ -1,7 +1,7 @@
 #include "Scene.h"
 #include "Framework/Components/CollisionComponent.h"
 
-namespace nc
+namespace lady
 {
 	bool Scene::Initialize()
 	{

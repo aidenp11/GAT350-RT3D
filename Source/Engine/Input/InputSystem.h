@@ -5,7 +5,7 @@
 #include <vector>
 #include <array>
 
-namespace nc
+namespace lady
 {
 	// Input system that holds the state of input devices (keyboard, mouse).
 	class InputSystem : public ISystem

@@ -2,7 +2,7 @@
 #include "Component.h"
 #include "Core/Math/Vector2.h"
 
-namespace nc
+namespace lady
 {
 	class PhysicsComponent : public Component
 	{

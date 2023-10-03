@@ -1,6 +1,6 @@
 #include "InputSystem.h"
 
-namespace nc
+namespace lady
 {
 	bool InputSystem::Initialize()
 	{

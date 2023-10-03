@@ -2,7 +2,7 @@
 #include "Renderer.h"
 #include <sstream>
 
-namespace nc
+namespace lady
 {
 	bool Model::Create(std::string filename, ...)
 	{
@@ -12,7 +12,7 @@ namespace nc
 	bool Model::Load(const std::string& filename)
 	{
 		std::string buffer;
-		if (!nc::readFile(filename, buffer))
+		if (!lady::readFile(filename, buffer))
 		{
 			WARNING_LOG("Could not load model: " << filename);
 			return false;

@@ -5,9 +5,9 @@
 #include <memory>
 #include <string>
 
-#define GET_RESOURCE(type, filename, ...) nc::ResourceManager::Instance().Get<type>(filename, __VA_ARGS__)
+#define GET_RESOURCE(type, filename, ...) lady::ResourceManager::Instance().Get<type>(filename, __VA_ARGS__)
 
-namespace nc
+namespace lady
 {
 	// ResourceManager - Stores all currently loaded resources in a map
 	// uses string (filename) as the key and a res_t (shared pointer) to the resource data

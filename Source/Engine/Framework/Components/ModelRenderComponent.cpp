@@ -2,7 +2,7 @@
 #include "Framework/Actor.h"
 #include "Framework/Resource/ResourceManager.h"
 
-namespace nc
+namespace lady
 {
 	CLASS_DEFINITION(ModelRenderComponent)
 

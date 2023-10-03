@@ -2,7 +2,7 @@
 #include <string>
 #include <memory>
 
-namespace nc
+namespace lady
 {
 	// Resource - Base class for all resources used in the engine (Texture, Models, Audio Clips, ...)
 	class Resource

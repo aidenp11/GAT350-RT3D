@@ -1,7 +1,7 @@
 #include "Actor.h"
 #include "Components/RenderComponent.h"
 
-namespace nc
+namespace lady
 {
 	CLASS_DEFINITION(Actor)
 
@@ -54,7 +54,7 @@ namespace nc
 		}
 	}
 
-	void Actor::Draw(nc::Renderer& renderer)
+	void Actor::Draw(lady::Renderer& renderer)
 	{
 		for (auto& component : components)
 		{

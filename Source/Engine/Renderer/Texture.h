@@ -4,7 +4,7 @@
 
 struct SDL_Texture;
 
-namespace nc
+namespace lady
 {
 	class Texture : public Resource
 	{

@@ -3,7 +3,7 @@
 #include "Core/Logger.h"
 #include <SDL2-2.28.4/include/SDL_image.h>
 
-namespace nc
+namespace lady
 {
 	Texture::~Texture()
 	{

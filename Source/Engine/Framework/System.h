@@ -1,6 +1,6 @@
 #pragma once
 
-namespace nc
+namespace lady
 {
 	// Abstract class (Interface) for all engine systems (Renderer, Input System, Audio System, ...)
 	class ISystem

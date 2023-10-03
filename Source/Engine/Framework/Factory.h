@@ -5,12 +5,12 @@
 #include <map>
 #include <string>
 
-#define CREATE_CLASS(classname) nc::Factory::Instance().Create<nc::classname>(#classname);
-#define CREATE_CLASS_BASE(classbase, classname) nc::Factory::Instance().Create<nc::classbase>(classname);
-#define INSTANTIATE(classname) nc::Factory::Instance().Create<nc::Actor>(classname);
-#define INSTANTIATE_BASE(classbase, classname) nc::Factory::Instance().Create<nc::classbase>(classname);
+#define CREATE_CLASS(classname) lady::Factory::Instance().Create<lady::classname>(#classname);
+#define CREATE_CLASS_BASE(classbase, classname) lady::Factory::Instance().Create<lady::classbase>(classname);
+#define INSTANTIATE(classname) lady::Factory::Instance().Create<lady::Actor>(classname);
+#define INSTANTIATE_BASE(classbase, classname) lady::Factory::Instance().Create<lady::classbase>(classname);
 
-namespace nc
+namespace lady
 {
 	class CreatorBase
 	{

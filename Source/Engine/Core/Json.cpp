@@ -4,7 +4,7 @@
 #include <rapidjson/include/rapidjson/istreamwrapper.h>
 #include <sstream>
 
-namespace nc
+namespace lady
 {
 	bool Json::Load(const std::string& filename, rapidjson::Document& document)
 	{

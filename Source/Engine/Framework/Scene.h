@@ -2,7 +2,7 @@
 #include "Actor.h"
 #include <list>
 
-namespace nc
+namespace lady
 {
 	class Renderer;
 

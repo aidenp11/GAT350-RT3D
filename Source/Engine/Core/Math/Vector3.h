@@ -2,7 +2,7 @@
 #include <cmath>
 #include <sstream>
 
-namespace nc
+namespace lady
 {
 	class Vector3
 	{

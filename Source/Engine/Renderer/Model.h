@@ -3,7 +3,7 @@
 #include "Framework/Resource/Resource.h"
 #include <vector>
 
-namespace nc
+namespace lady
 {
 	class Renderer;
 

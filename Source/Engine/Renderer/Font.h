@@ -4,7 +4,7 @@
 
 struct _TTF_Font;
 
-namespace nc
+namespace lady
 {
 	class Font : public Resource
 	{

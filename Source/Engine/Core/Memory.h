@@ -9,7 +9,7 @@
 	#define new DEBUG_NEW
 #endif // _DEBUG
 
-namespace nc
+namespace lady
 {
 	// Windows memory tracker
 	class MemoryTracker

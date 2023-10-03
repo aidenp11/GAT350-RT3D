@@ -2,7 +2,7 @@
 #include "Core/Logger.h"
 #include <SDL2-2.28.4/include/SDL_ttf.h>
 
-namespace nc
+namespace lady
 {
 	Font::Font(const std::string& filename, int fontSize)
 	{
