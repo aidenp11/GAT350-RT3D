@@ -44,9 +44,10 @@ namespace lady
 
         //vertex data
         float positionData[] = {
-            -0.8f, -0.8f, 0.0f,
-             0.8f, -0.8f, 0.0f,
-             0.0f,  0.8f, 0.0f
+            0.25f, 0.25f, 0.0f,
+             0.25f, -0.25f, 0.0f,
+             -0.25f,  -0.25f, 0.0f,
+             -0.25f, 0.25f, 0.0f
         };
 
         float colorData[] =
@@ -101,7 +102,7 @@ namespace lady
         // render
         glBindVertexArray(m_vao);
 
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawArrays(GL_QUADS, 0, 4);
  
         // post-render
         renderer.EndFrame();
