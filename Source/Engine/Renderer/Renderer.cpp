@@ -47,7 +47,7 @@ namespace lady
 
 	void Renderer::BeginFrame()
 	{
-		glClearColor(0, 0, 0, 1);
+		glClearColor(0.67, 0.2, 1, 1);
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 

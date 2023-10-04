@@ -37,14 +37,31 @@ namespace lady
 
         glBegin(GL_TRIANGLES);
 
-        glColor3f(1, 0, 0);
+        glColor3f(1, 0.94, 0);
         glVertex2f(-0.5f, -0.5f);
 
-        glColor3f(0, 1, 0);
+        glColor3f(0.3, 1, 0.1);
         glVertex2f(0, 0.5f);
 
-        glColor3f(0, 0, 1);
+        glColor3f(1, 0.1, 1);
         glVertex2f(0.5f, -0.5f);
+
+        glEnd();
+
+        glPopMatrix();
+
+        glPushMatrix();
+
+        glBegin(GL_LINES);
+
+        for (int i = 0; i < 100; i++)
+        {
+            glColor3f(randomf(), randomf(), randomf());
+            glVertex2f(randomf(-1.0f, 1.0f), randomf(-1.0f, 1.0f));
+
+            glColor3f(randomf(), randomf(), randomf());
+            glVertex2f(randomf(-1.0f, 1.0f), randomf(-1.0f, 1.0f));
+        }
 
         glEnd();
 
