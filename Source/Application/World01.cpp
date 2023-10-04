@@ -33,18 +33,18 @@ namespace lady
         glPushMatrix();
         glTranslatef(m_position.x, m_position.y, 0);
         glRotatef(m_angle, 1, 1, 1);
-        glScalef(sin(m_time), sin(m_time), sin(m_time));
+        glScalef(sin(m_time) / 2, sin(m_time) / 2, sin(m_time) / 2);
 
         glBegin(GL_TRIANGLES);
 
-        glColor3f(1, 0.94, 0);
-        glVertex2f(-0.5f, -0.5f);
+            glColor3f(1, 0.94, 0);
+            glVertex2f(-0.5f, -0.5f);
 
-        glColor3f(0.3, 1, 0.1);
-        glVertex2f(0, 0.5f);
+            glColor3f(0.3, 1, 0.1);
+            glVertex2f(0, 0.5f);
 
-        glColor3f(1, 0.1, 1);
-        glVertex2f(0.5f, -0.5f);
+            glColor3f(1, 0.1, 1);
+            glVertex2f(0.5f, -0.5f);
 
         glEnd();
 
