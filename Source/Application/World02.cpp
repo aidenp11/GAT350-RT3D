@@ -2,7 +2,8 @@
 #include "Framework/Framework.h"
 #include "Input/InputSystem.h"
 
-#define INTERLEAVE
+//#define INTERLEAVE
+#define INDEX
 
 namespace lady
 {
@@ -45,7 +46,7 @@ namespace lady
 
 #ifdef INTERLEAVE
 
-        //vertex data
+
         float vertexData[] = {
             0.25f, 0.25f, 0.0f, 0.0f, 0.75f, 1.0f,
              0.25f, -0.25f, 0.0f, 0.0f, 0.75f, 1.0f,
@@ -76,11 +77,51 @@ namespace lady
         glEnableVertexAttribArray(1);
         glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3);
         glVertexAttribBinding(1, 0);
-        
+
+#elif defined(INDEX)
+
+        const float vertexData[] = {
+            -1.0f,  1.0f, 0.0f, 1.0f, 0.0f, 0.0f, // top-left
+             1.0f,  1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top-right
+             1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-right
+            -1.0f, -1.0f, 0.0f, 1.0f, 1.0f, 1.0f  // bottom-left
+        };
+
+        GLuint indices[] =
+        {
+            0, 1, 2,
+            2, 3, 0
+        };
+
+        GLuint vbo;
+        glGenBuffers(1, &vbo);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
+
+        GLuint ibo;
+        glGenBuffers(1, &ibo);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+        glGenVertexArrays(1, &m_vao);
+        glBindVertexArray(m_vao);
+
+        glEnableVertexAttribArray(0);
+        glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
+
+        glBindVertexBuffer(0, vbo, 0, sizeof(GLfloat) * 6);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+
+        glEnableVertexAttribArray(0);
+        glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
+        glVertexAttribBinding(0, 0);
+
+        glEnableVertexAttribArray(1);
+        glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3);
+        glVertexAttribBinding(1, 0);
 
 #else
 
-        //vertex data
         float positionData[] = {
             0.25f, 0.25f, 0.0f,
              0.25f, -0.25f, 0.0f,
@@ -143,7 +184,12 @@ namespace lady
         // render
         glBindVertexArray(m_vao);
 
-        glDrawArrays(GL_QUADS, 0, 4);
+#ifdef INDEX
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+#else
+
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+#endif
  
         // post-render
         renderer.EndFrame();
