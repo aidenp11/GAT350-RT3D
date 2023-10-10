@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 {
 	INFO_LOG("Initialize Engine...")
 
-	lady::MemoryTracker::Initialize();
+	//lady::MemoryTracker::Initialize();
 	lady::seedRandom((unsigned int)time(nullptr));
 	lady::setFilePath("assets");
 

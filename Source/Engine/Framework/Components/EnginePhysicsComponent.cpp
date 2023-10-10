@@ -11,7 +11,7 @@ namespace lady
 		velocity *= std::pow(1.0f - damping, dt);
 	}
 
-	void EnginePhysicsComponent::ApplyForce(const vec2& force)
+	void EnginePhysicsComponent::ApplyForce(const glm::vec3& force)
 	{
 		velocity += force;
 	}
