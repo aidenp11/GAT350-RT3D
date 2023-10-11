@@ -11,17 +11,21 @@ namespace lady
     bool World03::Initialize()
     {
 
-        m_program = GET_RESOURCE(Program, "shaders/unlit_color.prog");
+        m_program = GET_RESOURCE(Program, "shaders/unlit_texture.prog");
         m_program->Use();
+
+        m_texture = GET_RESOURCE(Texture, "Textures/llama.jpg");
+        m_texture->Bind();
+        m_texture->SetActive(GL_TEXTURE0);
 
 #ifdef INTERLEAVE
 
         //vertex data
         float vertexData[] = {
-            0.75f, 0.75f, 0.0f, 0.0f, 0.75f, 1.0f,
-             0.75f, -0.75f, 0.0f, 0.0f, 0.75f, 1.0f,
-             -0.75f,  -0.75f, 0.0f, 0.75f, 0.0f, 1.0f,
-             -0.75f, 0.75f, 0.0f, 0.75f, 0.0f, 1.0f
+            0.75f, 0.75f, 0.0f, 0.0f, 0.75f, 1.0f, 0.0f, 0.0f,
+             0.75f, -0.75f, 0.0f, 0.0f, 0.75f, 1.0f, 0.0f, 1.0f,
+             -0.75f,  -0.75f, 0.0f, 0.75f, 0.0f, 1.0f, 1.0f, 1.0f,
+             -0.75f, 0.75f, 0.0f, 0.75f, 0.0f, 1.0f, 1.0f, 0.0f
         };
 
         
@@ -38,7 +42,7 @@ namespace lady
         glEnableVertexAttribArray(0);
         glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
 
-        glBindVertexBuffer(0, vbo, 0, sizeof(GLfloat) * 6);
+        glBindVertexBuffer(0, vbo, 0, sizeof(GLfloat) * 8);
 
         glEnableVertexAttribArray(0);
         glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
@@ -47,6 +51,10 @@ namespace lady
         glEnableVertexAttribArray(1);
         glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3);
         glVertexAttribBinding(1, 0);
+
+        glEnableVertexAttribArray(2);
+        glVertexAttribFormat(2, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 6);
+        glVertexAttribBinding(2, 0);
         
 
 #else
@@ -107,7 +115,7 @@ namespace lady
         ImGui::DragFloat3("Scale", &m_transform.scale[0]);
         ImGui::End();
 
-        m_transform.rotation.z += 180 * dt;
+        //m_transform.rotation.z += 180 * dt;
 
         m_transform.position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_A) ? m_speed * -dt : 0;
         m_transform.position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_D) ? m_speed * dt : 0;
@@ -115,8 +123,17 @@ namespace lady
         m_transform.position.y += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_Q) ? m_speed * dt : 0;
         m_transform.position.z += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_W) ? m_speed * -dt : 0;
         m_transform.position.z += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_S) ? m_speed * dt : 0;
+        m_transform.rotation.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_F) ? 50 * m_speed * dt : 0;
+        m_transform.rotation.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_V) ? 50 * m_speed * -dt : 0;
+        m_transform.rotation.y += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_G) ? 50 * m_speed * dt : 0;
+        m_transform.rotation.y += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_B) ? 50 * m_speed * -dt : 0;
+        m_transform.rotation.z += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_H) ? 50 * m_speed * dt : 0;
+        m_transform.rotation.z += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_N) ? 50 * m_speed * -dt : 0;
 
         m_time += dt;
+
+        m_program->SetUniform("offset", glm::vec2{ m_time, 0 });
+        m_program->SetUniform("tiling", glm::vec2{ 3, 3 });
 
         // model matrix
         //glm::mat4 position = glm::translate(glm::mat4{ 1 }, m_position);
