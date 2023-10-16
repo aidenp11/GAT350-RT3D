@@ -11,13 +11,14 @@ namespace lady
 {
     bool World03::Initialize()
     {
+        m_material = GET_RESOURCE(Material, "materials/quad.mtrl");
 
-        m_program = GET_RESOURCE(Program, "shaders/unlit_texture.prog");
-        m_program->Use();
+        //m_program = GET_RESOURCE(Program, "shaders/unlit_texture.prog");
+        //m_program->Use();
 
-        m_texture = GET_RESOURCE(Texture, "Textures/llama.jpg");
-        m_texture->Bind();
-        m_texture->SetActive(GL_TEXTURE0);
+        //m_texture = GET_RESOURCE(Texture, "Textures/llama.jpg");
+        //m_texture->Bind();
+        //m_texture->SetActive(GL_TEXTURE0);
 
 #ifdef INTERLEAVE
 
@@ -31,31 +32,31 @@ namespace lady
 
         
 
-        //GLuint vbo;
-        //glGenBuffers(1, &vbo);
+        //gluint vbo;
+        //glgenbuffers(1, &vbo);
 
-        //glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        //glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
+        //glbindbuffer(gl_array_buffer, vbo);
+        //glbufferdata(gl_array_buffer, sizeof(vertexdata), vertexdata, gl_static_draw);
 
-        //glGenVertexArrays(1, &m_vao);
-        //glBindVertexArray(m_vao);
+        //glgenvertexarrays(1, &m_vao);
+        //glbindvertexarray(m_vao);
 
-        //glEnableVertexAttribArray(0);
-        //glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
+        //glenablevertexattribarray(0);
+        //glvertexattribformat(0, 3, gl_float, gl_false, 0);
 
-        //glBindVertexBuffer(0, vbo, 0, sizeof(GLfloat) * 8);
+        //glbindvertexbuffer(0, vbo, 0, sizeof(glfloat) * 8);
 
-        //glEnableVertexAttribArray(0);
-        //glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
-        //glVertexAttribBinding(0, 0);
+        //glenablevertexattribarray(0);
+        //glvertexattribformat(0, 3, gl_float, gl_false, 0);
+        //glvertexattribbinding(0, 0);
 
-        //glEnableVertexAttribArray(1);
-        //glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3);
-        //glVertexAttribBinding(1, 0);
+        //glenablevertexattribarray(1);
+        //glvertexattribformat(1, 3, gl_float, gl_false, sizeof(glfloat) * 3);
+        //glvertexattribbinding(1, 0);
 
-        //glEnableVertexAttribArray(2);
-        //glVertexAttribFormat(2, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 6);
-        //glVertexAttribBinding(2, 0);
+        //glenablevertexattribarray(2);
+        //glvertexattribformat(2, 2, gl_float, gl_false, sizeof(glfloat) * 6);
+        //glvertexattribbinding(2, 0);
 
         m_vertexBuffer = GET_RESOURCE(VertexBuffer, "vb");
         m_vertexBuffer->CreateVertexBuffer(sizeof(vertexData), 4, vertexData);
@@ -139,22 +140,24 @@ namespace lady
 
         m_time += dt;
 
-        m_program->SetUniform("offset", glm::vec2{ m_time, 0 });
-        m_program->SetUniform("tiling", glm::vec2{ 3, 3 });
+        m_material->ProcessGui();
+        m_material->Bind();
+        //m_program->SetUniform("offset", glm::vec2{ 0, 0 });
+        //m_program->SetUniform("tiling", glm::vec2{ 2, 2 });
 
         // model matrix
         //glm::mat4 position = glm::translate(glm::mat4{ 1 }, m_position);
         //glm::mat4 rotation = glm::rotate(glm::mat4{ 1 }, glm::radians(m_angle), glm::vec3{ 0, 0, 1 });
         //glm::mat4 model = position * rotation;
-        m_program->SetUniform("model", m_transform.GetMatrix());
+        m_material->GetProgram()->SetUniform("model", m_transform.GetMatrix());
         
         //view matrix
         glm::mat4 view = glm::lookAt(glm::vec3{ 0, 4, 5 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 1, 0 });
-        m_program->SetUniform("view", view);
+        m_material->GetProgram()->SetUniform("view", view);
         
         // projection matrix
         glm::mat4 projection = glm::perspective(glm::radians(70.0f), 800.0f / 600.0f, 0.01f, 100.0f);
-        m_program->SetUniform("projection", projection);
+        m_material->GetProgram()->SetUniform("projection", projection);
 
         ENGINE.GetSystem<Gui>()->EndFrame();
     }
