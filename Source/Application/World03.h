@@ -2,6 +2,7 @@
 #include "Framework/World.h"
 #include <vector>
 #include "Renderer/Renderer.h"
+#include "Core/Math/Transform.h"
 
 namespace lady
 {
@@ -24,5 +25,6 @@ namespace lady
 		res_t<Texture> m_texture;
 		res_t<Material> m_material;
 		res_t<VertexBuffer> m_vertexBuffer;
+
 	};
 }

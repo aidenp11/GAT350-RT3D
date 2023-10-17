@@ -58,7 +58,7 @@ namespace lady
         //glvertexattribformat(2, 2, gl_float, gl_false, sizeof(glfloat) * 6);
         //glvertexattribbinding(2, 0);
 
-        m_vertexBuffer = GET_RESOURCE(VertexBuffer, "vb");
+        m_vertexBuffer = std::make_shared<VertexBuffer>();
         m_vertexBuffer->CreateVertexBuffer(sizeof(vertexData), 4, vertexData);
         m_vertexBuffer->SetAttribute(0, 3, 8 * sizeof(GLfloat), 0);                  // position 
         m_vertexBuffer->SetAttribute(1, 3, 8 * sizeof(GLfloat), 3 * sizeof(float));  // color 
@@ -116,6 +116,7 @@ namespace lady
     void World03::Update(float dt)
     {
         ENGINE.GetSystem<Gui>()->BeginFrame();
+
 
         ImGui::Begin("Transform");
         ImGui::DragFloat3("Position", &m_transform.position[0]);

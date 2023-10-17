@@ -28,10 +28,10 @@ namespace lady
 		m_vertexCount = vertexCount;
 
 		// create vertex buffer
-		glGenBuffers(size, &m_vbo);
+		glGenBuffers(1, &m_vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, vertexCount);
 		// copy data into vertex buffer
-		glBufferData(GL_ARRAY_BUFFER, sizeof(data), data, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}
 
 	void VertexBuffer::CreateIndexBuffer(GLenum indexType, GLsizei count, GLvoid* data)
@@ -43,24 +43,24 @@ namespace lady
 
 		// create index buffer
 		glGenBuffers(1, &m_ibo);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, count); // the index buffer will use GL_ELEMENT_ARRAY_BUFFER
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo); // the index buffer will use GL_ELEMENT_ARRAY_BUFFER
 
 		GLsizei size = 0; // index count * number of bytes of type (sizeof() returns the number of bytes in the data type)
 		switch (m_indexType)
 		{
 		case GL_UNSIGNED_BYTE:
-			size = m_indexCount * sizeof(GL_UNSIGNED_BYTE);
+			size = m_indexCount * sizeof(GLubyte);
 			break;
 		case GL_UNSIGNED_SHORT:
-			size = m_indexCount * sizeof(GL_UNSIGNED_SHORT);
+			size = m_indexCount * sizeof(GLushort);
 			break;
 		case GL_UNSIGNED_INT:
-			size = m_indexCount * sizeof(GL_UNSIGNED_INT);
+			size = m_indexCount * sizeof(GLuint);
 			break;
 		}
 
 		// copy data into index buffer
-		glBufferData(GL_ARRAY_BUFFER, sizeof(data), data, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}
 		
 	void VertexBuffer::SetAttribute(int attribindex, GLint size, GLsizei stride, GLuint offset)
@@ -68,19 +68,19 @@ namespace lady
 		// size is number of elements (position = 3 (xyz), color = 3 (rgb), texcoord = 2 (uv))
 
 		// bind vertex buffer
-		glBindVertexBuffer(size, m_vbo, offset, stride);
+		glBindVertexBuffer(attribindex, m_vbo, offset, stride);
 		// enable vertex attribute (position, color, ...)
 		glEnableVertexAttribArray(attribindex);
 		// set vertex attribute format
-		glVertexAttribFormat(attribindex, offset, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3);
+		glVertexAttribFormat(attribindex, size, GL_FLOAT, GL_FALSE, offset);
 		// bind vertex attribute index to vertex buffer
-		glVertexAttribBinding(attribindex, size);
+		glVertexAttribBinding(attribindex, 0);
 	}
 
 	void VertexBuffer::Draw(GLenum primitiveType)
 	{
 		// bind vertex array object
-		glBindVertexArray(primitiveType);
+		glBindVertexArray(m_vao);
 
 		// if index buffer object was set (!= 0) then draw using index array data, else render primitives from vertex array data
 		if (m_ibo)
