@@ -29,7 +29,7 @@ namespace lady
 
 		// create vertex buffer
 		glGenBuffers(1, &m_vbo);
-		glBindBuffer(GL_ARRAY_BUFFER, vertexCount);
+		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 		// copy data into vertex buffer
 		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}
@@ -43,7 +43,7 @@ namespace lady
 
 		// create index buffer
 		glGenBuffers(1, &m_ibo);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo); // the index buffer will use GL_ELEMENT_ARRAY_BUFFER
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
 
 		GLsizei size = 0; // index count * number of bytes of type (sizeof() returns the number of bytes in the data type)
 		switch (m_indexType)
@@ -60,7 +60,7 @@ namespace lady
 		}
 
 		// copy data into index buffer
-		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}
 		
 	void VertexBuffer::SetAttribute(int attribindex, GLint size, GLsizei stride, GLuint offset)
@@ -68,7 +68,7 @@ namespace lady
 		// size is number of elements (position = 3 (xyz), color = 3 (rgb), texcoord = 2 (uv))
 
 		// bind vertex buffer
-		glBindVertexBuffer(attribindex, m_vbo, offset, stride);
+		glBindVertexBuffer(0, m_vbo, 0, stride);
 		// enable vertex attribute (position, color, ...)
 		glEnableVertexAttribArray(attribindex);
 		// set vertex attribute format
