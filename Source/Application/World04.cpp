@@ -15,7 +15,7 @@ namespace lady
         auto material = GET_RESOURCE(Material, "materials/grid.mtrl");
         m_model = std::make_shared<Model>();
         m_model->SetMaterial(material);
-        m_model->Load("models/sphere.obj");
+        m_model->Load("models/sphere.obj", glm::vec3{ 0 }, glm::vec3{ 90, 0, 0 });
 
         return true;
     }
@@ -35,6 +35,16 @@ namespace lady
         ImGui::DragFloat3("Rotation", &m_transform.rotation[0], 0.8f);
         ImGui::DragFloat3("Scale", &m_transform.scale[0], 0.1f);
         ImGui::End();
+
+        ImGui::Begin("Light");
+        ImGui::DragFloat3("Ambient Light", &m_ambientLight[0]);
+        ImGui::DragFloat3("Diffuse Light", &m_diffuseLight[0]);
+        ImGui::DragFloat3("Light Position", &m_lightPosition[0]);
+        ImGui::End();
+
+        m_program->SetUniform("ambientLight", m_ambientLight);
+        m_program->SetUniform("light.color", m_diffuseLight);
+        m_program->SetUniform("light.position", m_lightPosition);
 
         //m_transform.rotation.z += 180 * dt;
 
@@ -81,8 +91,8 @@ namespace lady
         // pre-render
         renderer.BeginFrame();
         // render
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         m_model->Draw(GL_TRIANGLES);
         ENGINE.GetSystem<Gui>()->Draw();
         // post-render

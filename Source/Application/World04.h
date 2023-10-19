@@ -18,6 +18,10 @@ namespace lady
 		float m_time;
 		float m_speed = 5;
 
+		glm::vec3 m_ambientLight = glm::vec3(0.2, 0.2, 0.2);
+		glm::vec3 m_diffuseLight = glm::vec3(1, 1, 1);
+		glm::vec3 m_lightPosition = glm::vec3(0, 8, 0 );
+
 		Transform m_transform;
 		
 		GLuint m_vao;
