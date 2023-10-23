@@ -15,7 +15,13 @@ namespace lady
         auto material = GET_RESOURCE(Material, "materials/grid.mtrl");
         m_model = std::make_shared<Model>();
         m_model->SetMaterial(material);
-        m_model->Load("models/sphere.obj", glm::vec3{ 0 }, glm::vec3{ 90, 0, 0 });
+        m_model->Load("models/plane.obj", glm::vec3{ 0 }, glm::vec3{ 0, 0, 0 });
+
+        m_light.type = light_t::eType::Point;
+        m_light.position = glm::vec3{ 0, 5, 0 };
+        m_light.direction = glm::vec3{ 0, 1, 0 };
+        m_light.color = glm::vec3{ 1, 1, 1 };
+        m_light.cutoff = 30.0f;
 
         return true;
     }
@@ -37,14 +43,16 @@ namespace lady
         ImGui::End();
 
         ImGui::Begin("Light");
-        ImGui::DragFloat3("Ambient Light", &m_ambientLight[0]);
-        ImGui::DragFloat3("Diffuse Light", &m_diffuseLight[0]);
-        ImGui::DragFloat3("Light Position", &m_lightPosition[0]);
-        ImGui::End();
+        const char* types[] = {"Point", "Directional", "Spot"};
+        ImGui::Combo("Type", (int*)(&m_light.type), types, 3);
 
-        m_program->SetUniform("ambientLight", m_ambientLight);
-        m_program->SetUniform("light.color", m_diffuseLight);
-        m_program->SetUniform("light.position", m_lightPosition);
+        ImGui::ColorEdit3("Ambient Light", &m_ambientLight[0], 0.1f);
+        ImGui::ColorEdit3("Diffuse Light", &m_light.color[0], 0.1f);
+        
+        if (m_light.type != light_t::Directional) ImGui::DragFloat3("Light Position", &m_light.position[0], 0.1f);
+        if (m_light.type != light_t::Point) ImGui::DragFloat3("Light Direction", &m_light.direction[0], 0.1f);
+        if (m_light.type == light_t::Spot) ImGui::DragFloat("CutOff", &m_light.cutoff);
+        ImGui::End();
 
         //m_transform.rotation.z += 180 * dt;
 
@@ -70,6 +78,13 @@ namespace lady
 
         //m_material->GetProgram()->SetUniform("model", m_transform.GetMatrix());
         material->GetProgram()->SetUniform("model", m_transform.GetMatrix());
+        material->GetProgram()->SetUniform("light.type", m_light.type);
+        material->GetProgram()->SetUniform("ambientLight", m_ambientLight);
+        material->GetProgram()->SetUniform("light.color", m_light.color);
+        material->GetProgram()->SetUniform("light.cutoff", glm::radians(m_light.cutoff));
+        material->GetProgram()->SetUniform("light.position", m_light.position);
+        material->GetProgram()->SetUniform("light.direction", m_light.direction);
+
         
         //view matrix
         glm::mat4 view = glm::lookAt(glm::vec3{ 0, 4, 5 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 1, 0 });
@@ -77,7 +92,7 @@ namespace lady
         material->GetProgram()->SetUniform("view", view);
         
         // projection matrix
-        glm::mat4 projection = glm::perspective(glm::radians(70.0f), 800.0f / 600.0f, 0.01f, 100.0f);
+        glm::mat4 projection = glm::perspective(glm::radians(90.0f), 800.0f / 600.0f, 0.1f, 100.0f);
         //m_material->GetProgram()->SetUniform("projection", projection);
         material->GetProgram()->SetUniform("projection", projection);
 
