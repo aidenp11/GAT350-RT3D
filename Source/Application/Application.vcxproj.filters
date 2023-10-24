@@ -80,5 +80,11 @@
     <None Include="..\..\Build\Assets\Shaders\lit_texture_goround.frag">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="..\..\Build\Assets\Shaders\multi_lit_texture.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\multi_lit_texture.prog">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

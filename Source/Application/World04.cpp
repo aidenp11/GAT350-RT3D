@@ -12,17 +12,22 @@ namespace lady
     bool World04::Initialize()
     {
         //m_material = GET_RESOURCE(Material, "materials/quad.mtrl");
-        auto material = GET_RESOURCE(Material, "materials/grid.mtrl");
+        auto material = GET_RESOURCE(Material, "materials/multi.mtrl");
         m_model = std::make_shared<Model>();
         m_model->SetMaterial(material);
         m_model->Load("models/plane.obj", glm::vec3{ 0 }, glm::vec3{ 0, 0, 0 });
 
-        m_light.type = light_t::eType::Point;
-        m_light.position = glm::vec3{ 0, 5, 0 };
-        m_light.direction = glm::vec3{ 0, 1, 0 };
-        m_light.color = glm::vec3{ 1, 1, 1 };
-        m_light.cutoff = 30.0f;
-
+        for (int i = 0; i < 3; i++)
+        {
+            m_lights[i].type = light_t::eType::Point;
+            m_lights[i].position = glm::vec3{ randomf(-5, 5), randomf(1, 8), randomf(-5, 5) };
+            m_lights[i].direction = glm::vec3{ 0, -1, 0 };
+            m_lights[i].color = glm::vec3{ 1, 1, 1 };
+            m_lights[i].intensity = 1;
+            m_lights[i].range = 6;
+            m_lights[i].innerAngle = 10.0f;
+            m_lights[i].outerAngle = 30.0f;
+        }
         return true;
     }
 
@@ -44,14 +49,21 @@ namespace lady
 
         ImGui::Begin("Light");
         const char* types[] = {"Point", "Directional", "Spot"};
-        ImGui::Combo("Type", (int*)(&m_light.type), types, 3);
+        ImGui::Combo("Type", (int*)(&m_lights[m_selected].type), types, 3);
 
         ImGui::ColorEdit3("Ambient Light", &m_ambientLight[0], 0.1f);
-        ImGui::ColorEdit3("Diffuse Light", &m_light.color[0], 0.1f);
+        ImGui::ColorEdit3("Diffuse Light", &m_lights[m_selected].color[0], 0.1f);
+
+        ImGui::DragFloat("Intensity", &m_lights[m_selected].intensity, 0.1f, 0, 10);
+        ImGui::DragFloat("Range", &m_lights[m_selected].range, 0.1f);
         
-        if (m_light.type != light_t::Directional) ImGui::DragFloat3("Light Position", &m_light.position[0], 0.1f);
-        if (m_light.type != light_t::Point) ImGui::DragFloat3("Light Direction", &m_light.direction[0], 0.1f);
-        if (m_light.type == light_t::Spot) ImGui::DragFloat("CutOff", &m_light.cutoff);
+        if (m_lights[m_selected].type != light_t::Directional) ImGui::DragFloat3("Light Position", &m_lights[m_selected].position[0], 0.1f);
+        if (m_lights[m_selected].type != light_t::Point) ImGui::DragFloat3("Light Direction", &m_lights[m_selected].direction[0], 0.1f);
+        if (m_lights[m_selected].type == light_t::Spot)
+        {
+            ImGui::DragFloat("Inner Angle", &m_lights[m_selected].innerAngle, 1, 0, m_lights[m_selected].outerAngle);
+            ImGui::DragFloat("Outer Angle", &m_lights[m_selected].outerAngle, 1, m_lights[m_selected].innerAngle, 90);
+        }
         ImGui::End();
 
         //m_transform.rotation.z += 180 * dt;
@@ -76,16 +88,23 @@ namespace lady
         material->ProcessGui();
         material->Bind();
 
-        //m_material->GetProgram()->SetUniform("model", m_transform.GetMatrix());
-        material->GetProgram()->SetUniform("model", m_transform.GetMatrix());
-        material->GetProgram()->SetUniform("light.type", m_light.type);
-        material->GetProgram()->SetUniform("ambientLight", m_ambientLight);
-        material->GetProgram()->SetUniform("light.color", m_light.color);
-        material->GetProgram()->SetUniform("light.cutoff", glm::radians(m_light.cutoff));
-        material->GetProgram()->SetUniform("light.position", m_light.position);
-        material->GetProgram()->SetUniform("light.direction", m_light.direction);
+        for (int i = 0; i < 3; i++)
+        {
+            std::string name = "lights[" + std::to_string(i) + "]";
 
+            //m_material->GetProgram()->SetUniform("model", m_transform.GetMatrix());
+            material->GetProgram()->SetUniform(name + ".type", m_lights[i].type);
+            material->GetProgram()->SetUniform(name + ".color", m_lights[i].color);
+            material->GetProgram()->SetUniform(name + ".intensity", m_lights[i].intensity);
+            material->GetProgram()->SetUniform(name + ".range", m_lights[i].range);
+            material->GetProgram()->SetUniform(name + ".innerAngle", glm::radians(m_lights[i].innerAngle));
+            material->GetProgram()->SetUniform(name + ".outerAngle", glm::radians(m_lights[i].outerAngle));
+            material->GetProgram()->SetUniform(name + ".position", m_lights[i].position);
+            material->GetProgram()->SetUniform(name + ".direction", glm::normalize(m_lights[i].direction));
+        }
         
+            material->GetProgram()->SetUniform("model", m_transform.GetMatrix());
+            material->GetProgram()->SetUniform("ambientLight", m_ambientLight);
         //view matrix
         glm::mat4 view = glm::lookAt(glm::vec3{ 0, 4, 5 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 1, 0 });
         //m_material->GetProgram()->SetUniform("view", view);
