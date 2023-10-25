@@ -139,6 +139,7 @@
     <ClInclude Include="Components\CollisionComponent.h" />
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Components\EnginePhysicsComponent.h" />
+    <ClInclude Include="Components\LightComponent.h" />
     <ClInclude Include="Components\ModelRenderComponent.h" />
     <ClInclude Include="Components\PhysicsComponent.h" />
     <ClInclude Include="Components\RenderComponent.h" />
@@ -158,6 +159,7 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Components\EnginePhysicsComponent.cpp" />
+    <ClCompile Include="Components\LightComponent.cpp" />
     <ClCompile Include="Components\ModelRenderComponent.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Event\EventManager.cpp" />

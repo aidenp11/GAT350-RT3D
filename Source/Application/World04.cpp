@@ -4,6 +4,7 @@
 #include "Renderer/VertexBuffer.h"
 
 #include <glm/glm/gtc/type_ptr.hpp>
+#include <glm/glm/gtc/color_space.hpp>
 
 #define INTERLEAVE
 
@@ -11,11 +12,17 @@ namespace lady
 {
     bool World04::Initialize()
     {
+        ////m_material = GET_RESOURCE(Material, "materials/quad.mtrl");
+        //auto material = GET_RESOURCE(Material, "materials/multi.mtrl");
+        //m_model = std::make_shared<Model>();
+        //m_model->SetMaterial(material);
+        //m_model->Load("models/plane.obj", glm::vec3{ 0 }, glm::vec3{ 0, 0, 0 });
+
         //m_material = GET_RESOURCE(Material, "materials/quad.mtrl");
-        auto material = GET_RESOURCE(Material, "materials/multi.mtrl");
+        auto material = GET_RESOURCE(Material, "materials/squirrel.mtrl");
         m_model = std::make_shared<Model>();
         m_model->SetMaterial(material);
-        m_model->Load("models/plane.obj", glm::vec3{ 0 }, glm::vec3{ 0, 0, 0 });
+        m_model->Load("models/squirrel.glb", glm::vec3{ 0, -0.7f, 0 }, glm::vec3{ 0 }, glm::vec3{ 0.4f });
 
         for (int i = 0; i < 3; i++)
         {
@@ -23,8 +30,9 @@ namespace lady
             m_lights[i].position = glm::vec3{ randomf(-5, 5), randomf(1, 8), randomf(-5, 5) };
             m_lights[i].direction = glm::vec3{ 0, -1, 0 };
             m_lights[i].color = glm::vec3{ 1, 1, 1 };
+            //m_lights[i].color = glm::rgbColor(glm::vec3{ randomf() * 360, 1, 1 });
             m_lights[i].intensity = 1;
-            m_lights[i].range = 6;
+            m_lights[i].range = 16;
             m_lights[i].innerAngle = 10.0f;
             m_lights[i].outerAngle = 30.0f;
         }
@@ -41,11 +49,7 @@ namespace lady
 
         auto material = m_model->GetMaterial();
 
-        ImGui::Begin("Transform");
-        ImGui::DragFloat3("Position", &m_transform.position[0], 0.1f);
-        ImGui::DragFloat3("Rotation", &m_transform.rotation[0], 0.8f);
-        ImGui::DragFloat3("Scale", &m_transform.scale[0], 0.1f);
-        ImGui::End();
+       
 
         ImGui::Begin("Light");
         const char* types[] = {"Point", "Directional", "Spot"};
@@ -63,6 +67,16 @@ namespace lady
         {
             ImGui::DragFloat("Inner Angle", &m_lights[m_selected].innerAngle, 1, 0, m_lights[m_selected].outerAngle);
             ImGui::DragFloat("Outer Angle", &m_lights[m_selected].outerAngle, 1, m_lights[m_selected].innerAngle, 90);
+        }
+        ImGui::End();
+
+        ImGui::Begin("Lights");
+        ImGui::Separator();
+
+        for (int i = 0; i < 3; i++)
+        {
+            std::string name = "light" + std::to_string(i);
+            if (ImGui::Selectable(name.c_str(), m_selected == i)) m_selected = i;
         }
         ImGui::End();
 
