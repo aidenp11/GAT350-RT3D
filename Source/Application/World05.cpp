@@ -13,11 +13,25 @@ namespace lady
     bool World05::Initialize()
     {
         m_scene = std::make_unique<Scene>();
+        //m_scene->Load("scenes/scene.json");
+        m_scene->Initialize();
 
         {
             auto actor = CREATE_CLASS(Actor);
             actor->name = "actor1";
             actor->transform.position = glm::vec3{ 0, 0, 0 };
+            auto modelComponent = CREATE_CLASS(ModelRenderComponent);
+            modelComponent->m_model = std::make_shared<Model>();
+            modelComponent->m_model->SetMaterial(GET_RESOURCE(Material, "materials/squirrel.mtrl"));
+            modelComponent->m_model->Load("models/squirrel.glb", glm::vec3{ 0, -0.7f, 0 }, glm::vec3{ 0 }, glm::vec3{ 0.4f });
+            actor->AddComponent(std::move(modelComponent));
+            m_scene->Add(std::move(actor));
+        }
+
+        {
+            auto actor = CREATE_CLASS(Actor);
+            actor->name = "actor2";
+            actor->transform.position = glm::vec3{ 1.5, 0, 0 };
             auto modelComponent = CREATE_CLASS(ModelRenderComponent);
             modelComponent->m_model = std::make_shared<Model>();
             modelComponent->m_model->SetMaterial(GET_RESOURCE(Material, "materials/squirrel.mtrl"));
@@ -53,7 +67,7 @@ namespace lady
         ENGINE.GetSystem<Gui>()->BeginFrame();
 
         m_scene->Update(dt);
-        //m_scene->ProcessGui();
+        m_scene->ProcessGui();
 
         //m_transform.rotation.z += 180 * dt;
 
