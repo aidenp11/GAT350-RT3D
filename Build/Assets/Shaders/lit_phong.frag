@@ -4,12 +4,29 @@
 #define DIRECTIONAL 1
 #define SPOT		2
 
+#define ALBEDO_TEXTURE_MASK		 (1 << 0)
+#define SPECULAR_TEXTURE_MASK	 (1 << 1)
+#define NORMAL_TEXTURE_MASK		 (1 << 2)
+#define EMISSIVE_TEXTURE_MASK	 (1 << 3)
+
 in layout(location = 0) vec3 fposition;
 in layout(location = 1) vec3 fnormal;
 in layout(location = 2) vec2 ftexcoord;
-in layout(location = 3) vec4 fcolor;
+//in layout(location = 3) vec4 fcolor;
 
 out layout(location = 0) vec4 ocolor;
+
+uniform struct Material
+{
+ uint params;
+ vec3 albedo;
+ vec3 specular;
+ vec3 emissive;
+ float shininess;
+
+ vec2 offset;
+ vec2 tiling;
+} material;
 
 uniform struct Light
 {
@@ -22,17 +39,6 @@ uniform struct Light
 	float innerAngle;
 	float outerAngle;
 } lights[3];
-
-uniform struct Material
-{
- vec3 albedo;
- vec3 specular;
- vec3 emissive;
- float shininess;
-
- vec2 offset;
- vec2 tiling;
-} material;
 
 uniform vec3 ambientLight;
 uniform int numLights = 3;
@@ -82,9 +88,9 @@ void phong (in Light light, in vec3 position, in vec3 normal, out vec3 diffuse, 
 
 void main()
 {
-	vec4 albedoColor = vec4(material.albedo, 1);
-	vec4 specularColor = vec4(material.specular, 1);
-	vec4 emissiveColor = vec4(material.emissive, 1);
+	vec4 albedoColor = bool(material.params & ALBEDO_TEXTURE_MASK) ? texture(albedoTexture, ftexcoord) : vec4(material.albedo, 1);//vec4(material.albedo, 1);
+	vec4 specularColor = texture(specularTexture, ftexcoord);//vec4(material.specular, 1);
+	vec4 emissiveColor = texture(emissiveTexture, ftexcoord);//vec4(material.emissive, 1);
 
 	// set ambient light
 	ocolor = vec4(ambientLight, 1) * albedoColor + emissiveColor;
