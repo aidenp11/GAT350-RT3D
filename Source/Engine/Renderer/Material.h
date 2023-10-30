@@ -21,8 +21,9 @@ namespace lady
 		void ProcessGui();
 
 	public:
-		glm::vec3 diffuse{ 1 };
+		glm::vec3 albedo{ 1 };
 		glm::vec3 specular{ 1 };
+		glm::vec3 emissive{ 0 };
 		float shininess = 2;
 
 		glm::vec2 tiling{ 1, 1 };
@@ -30,6 +31,11 @@ namespace lady
 
 	private:
 		res_t<Program> m_program;
-		std::vector<res_t<Texture>> m_textures;
+		//std::vector<res_t<Texture>> m_textures;
+
+		res_t<Texture> albedoTexture;
+		res_t<Texture> specularTexture;
+		res_t<Texture> normalTexture;
+		res_t<Texture> emissiveTexture;
 	};
 }
