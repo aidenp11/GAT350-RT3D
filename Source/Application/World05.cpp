@@ -43,6 +43,19 @@ namespace lady
             m_scene->Add(std::move(actor));
         }
 
+        {
+            auto actor = CREATE_CLASS(Actor);
+            actor->name = "camera1";
+            actor->transform.position = glm::vec3{ 0, 0, 3 };
+            actor->transform.rotation = glm::vec3{ 0, 180, 0 };
+
+            auto cameraComponent = CREATE_CLASS(CameraComponent);
+            cameraComponent->SetPerspective(70.0f, ENGINE.GetSystem<Renderer>()->GetWidth() / (float)ENGINE.GetSystem<Renderer>()->GetHeight(), 0.1f, 100.0f);
+            actor->AddComponent(std::move(cameraComponent));
+
+            m_scene->Add(std::move(actor));
+        }
+
         return true;
     }
 
@@ -84,15 +97,7 @@ namespace lady
         material->Bind();
         
         material->GetProgram()->SetUniform("ambientLight", m_ambientLight);
-        //view matrix
-        glm::mat4 view = glm::lookAt(glm::vec3{ 0, 4, 5 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 1, 0 });
-        //m_material->GetProgram()->SetUniform("view", view);
-        material->GetProgram()->SetUniform("view", view);
         
-        // projection matrix
-        glm::mat4 projection = glm::perspective(glm::radians(90.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-        //m_material->GetProgram()->SetUniform("projection", projection);
-        material->GetProgram()->SetUniform("projection", projection);
 
         ENGINE.GetSystem<Gui>()->EndFrame();
     }
