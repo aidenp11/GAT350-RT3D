@@ -44,6 +44,13 @@ namespace lady
 		{
 			emissiveTexture = GET_RESOURCE(Texture, emissiveTextureName);
 		}
+
+		std::string normalTextureName;
+		READ_NAME_DATA(document, "normalTexture", emissiveTextureName);
+		if (!emissiveTextureName.empty())
+		{
+			normalTexture = GET_RESOURCE(Texture, normalTextureName);
+		}
 		
 
 		READ_DATA(document, albedo);
@@ -59,6 +66,7 @@ namespace lady
 	void Material::Bind()
 	{
 		m_program->Use();
+		m_program->SetUniform("material.params", params);
 		m_program->SetUniform("material.albedo", albedo);
 		m_program->SetUniform("material.specular", specular);
 		m_program->SetUniform("material.emissive", emissive);

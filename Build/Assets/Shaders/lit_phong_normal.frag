@@ -10,8 +10,8 @@
 #define EMISSIVE_TEXTURE_MASK	 (1 << 3)
 
 in layout(location = 0) vec3 fposition;
-in layout(location = 1) vec3 fnormal;
-in layout(location = 2) vec2 ftexcoord;
+in layout(location = 1) vec2 ftexcoord;
+in layout(location = 2) mat3 ftbn;
 //in layout(location = 3) vec4 fcolor;
 
 out layout(location = 0) vec4 ocolor;
@@ -89,8 +89,8 @@ void phong (in Light light, in vec3 position, in vec3 normal, out vec3 diffuse, 
 void main()
 {
 	vec4 albedoColor = bool(material.params & ALBEDO_TEXTURE_MASK) ? texture(albedoTexture, ftexcoord) : vec4(material.albedo, 1);//vec4(material.albedo, 1);
-	vec4 specularColor = bool(material.params & SPECULAR_TEXTURE_MASK) ? texture(specularTexture, ftexcoord) : vec4(material.specular, 1);//vec4(material.specular, 1);
-	vec4 emissiveColor = bool(material.params & EMISSIVE_TEXTURE_MASK) ? texture(emissiveTexture, ftexcoord) : vec4(material.emissive, 1);//vec4(material.emissive, 1);
+	vec4 specularColor = texture(specularTexture, ftexcoord);//vec4(material.specular, 1);
+	vec4 emissiveColor = texture(emissiveTexture, ftexcoord);//vec4(material.emissive, 1);
 
 	// set ambient light
 	ocolor = vec4(ambientLight, 1) * albedoColor + emissiveColor;
@@ -102,8 +102,13 @@ void main()
 		vec3 specular;
  
 		float attenuation = (lights[i].type == DIRECTIONAL) ? 1 : attenuation(lights[i].position, fposition, lights[i].range);
+
+		vec3 normal = texture(normalTexture, ftexcoord).rgb;
+		normal = (normal * 2) - 1;
+		normal = normalize(ftbn * normal);
+
  
-		phong(lights[i], fposition, fnormal, diffuse, specular);
+		phong(lights[i], fposition, normal, diffuse, specular);
 		ocolor += ((vec4(diffuse, 1) * albedoColor) + (vec4(specular, 1)) * specularColor) * lights[i].intensity * attenuation;
 	}
 }

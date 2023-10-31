@@ -12,7 +12,7 @@
 			"components": [
 				{
 					"type": "ModelComponent",
-					"modelName": "models/squirrel.glb",
+					"modelName": "models/ogre.obj",
 					"materialName": "materials/phong.mtrl"
 				}
 			]
