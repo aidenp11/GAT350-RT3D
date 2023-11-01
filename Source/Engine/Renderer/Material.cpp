@@ -2,6 +2,7 @@
 #include "Program.h"
 #include "Texture.h"
 #include "Core/Core.h"
+#include "Cubemap.h"
 
 namespace lady
 {
@@ -35,6 +36,7 @@ namespace lady
 		READ_NAME_DATA(document, "specularTexture", specularTextureName);
 		if (!specularTextureName.empty())
 		{
+			params |= SPECULAR_TEXTURE_MASK;
 			specularTexture = GET_RESOURCE(Texture, specularTextureName);
 		}
 
@@ -42,15 +44,29 @@ namespace lady
 		READ_NAME_DATA(document, "emissiveTexture", emissiveTextureName);
 		if (!emissiveTextureName.empty())
 		{
+			params |= EMISSIVE_TEXTURE_MASK;
 			emissiveTexture = GET_RESOURCE(Texture, emissiveTextureName);
 		}
 
 		std::string normalTextureName;
-		READ_NAME_DATA(document, "normalTexture", emissiveTextureName);
+		READ_NAME_DATA(document, "normalTexture", normalTextureName);
 		if (!emissiveTextureName.empty())
 		{
+			params |= NORMAL_TEXTURE_MASK;
 			normalTexture = GET_RESOURCE(Texture, normalTextureName);
 		}
+
+		std::string cubemapName;
+		READ_NAME_DATA(document, "cubemap", cubemapName);
+		if (!emissiveTextureName.empty())
+		{
+			params |= CUBEMAP_TEXTURE_MASK;
+			std::vector<std::string> cubemaps;
+			READ_DATA(document, cubemaps);
+
+			cubemapTexture = GET_RESOURCE(Cubemap, cubemapName, cubemaps);
+		}
+
 		
 
 		READ_DATA(document, albedo);

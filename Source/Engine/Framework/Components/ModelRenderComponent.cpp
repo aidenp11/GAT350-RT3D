@@ -2,6 +2,7 @@
 #include "Framework/Actor.h"
 #include "Framework/Resource/ResourceManager.h"
 
+
 namespace lady
 {
 	CLASS_DEFINITION(ModelRenderComponent)
@@ -32,6 +33,10 @@ namespace lady
 		auto material = m_model->GetMaterial();
 		material->Bind();
 		material->GetProgram()->SetUniform("model", m_owner->transform.GetMatrix());
+
+		glDepthMask(enableDepth);
+		glCullFace(cullface);
+
 		m_model->Draw();
 	}
 
@@ -39,5 +44,10 @@ namespace lady
 	{
 		READ_DATA(value, modelName);
 		READ_DATA(value, materialName);
+
+		READ_DATA(value, enableDepth);
+		std::string cullfaceName;
+		READ_NAME_DATA(value, "cullface", cullfaceName);
+		//if (IsEqualIgnoreCase(cullfaceName, "front")) cullface = GL_FRONT;
 	}
 }
