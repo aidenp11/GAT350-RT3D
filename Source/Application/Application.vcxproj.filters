@@ -152,5 +152,14 @@
     <None Include="..\..\Build\Assets\Shaders\skybox.prog">
       <Filter>Shaders\cubemap</Filter>
     </None>
+    <None Include="..\..\Build\Assets\Shaders\reflection.prog">
+      <Filter>Shaders\cubemap</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\reflection.vert">
+      <Filter>Shaders\cubemap</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Materials\reflection.mtrl">
+      <Filter>Materials</Filter>
+    </None>
   </ItemGroup>
 </Project>
