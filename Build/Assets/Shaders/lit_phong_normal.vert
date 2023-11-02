@@ -1,9 +1,9 @@
 #version 430
 
 in layout(location = 0) vec3 vposition;
-in layout(location = 1) vec3 vnormal;
-in layout(location = 2) vec2 vtexcoord;
-in layout(location =3) vec3 vtangent;
+in layout(location = 1) vec2 vtexcoord;
+in layout(location = 2) vec3 vnormal;
+in layout(location = 3) vec3 vtangent;
 
 out layout(location = 0) vec3 oposition;
 out layout(location = 1) vec2 otexcoord;

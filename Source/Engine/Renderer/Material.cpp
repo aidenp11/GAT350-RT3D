@@ -57,8 +57,7 @@ namespace lady
 		}
 
 		std::string cubemapName;
-		READ_NAME_DATA(document, "cubemap", cubemapName);
-		if (!emissiveTextureName.empty())
+		if (READ_NAME_DATA(document, "cubemap", cubemapName))
 		{
 			params |= CUBEMAP_TEXTURE_MASK;
 			std::vector<std::string> cubemaps;
@@ -113,6 +112,12 @@ namespace lady
 		{
 			emissiveTexture->SetActive(GL_TEXTURE3);
 			emissiveTexture->Bind();
+		}
+
+		if (cubemapTexture)
+		{
+			cubemapTexture->SetActive(GL_TEXTURE0);
+			cubemapTexture->Bind();
 		}
 	}
 	void Material::ProcessGui()

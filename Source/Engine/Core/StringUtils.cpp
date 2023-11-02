@@ -1,19 +1,31 @@
 #include "StringUtils.h"
+#include <string>
+#include <algorithm>
+
 namespace lady
 {
-	std::string StringUtils::ToUpper(std::string& s)
+	std::string ToUpper(const std::string& s)
 	{
-		return std::string();
+		std::string result = s;
+		for (auto& c : result) c = std::toupper(c);
+
+		return result;
 	}
-	std::string StringUtils::ToLower(std::string& s)
+	std::string ToLower(const std::string& s)
 	{
-		return std::string();
+		std::string result = s;
+		for (auto& c : result) c = std::tolower(c);
+
+		return result;
+
 	}
-	bool StringUtils::IsEqualIgnoreCase(const std::string& s1, const std::string& s2)
+	bool IsEqualIgnoreCase(const std::string& s1, const std::string& s2)
 	{
-		return false;
+		if (s1.size() != s2.size()) return false;
+
+		return ToUpper(s1) == ToUpper(s2);
 	}
-	std::string StringUtils::CreateUnique(const std::string& s)
+	std::string CreateUnique(const std::string& s)
 	{
 		return std::string();
 	}

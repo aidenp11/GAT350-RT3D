@@ -1,4 +1,5 @@
 #include "ModelRenderComponent.h"
+#include "Core/StringUtils.h"
 #include "Framework/Actor.h"
 #include "Framework/Resource/ResourceManager.h"
 
@@ -48,6 +49,6 @@ namespace lady
 		READ_DATA(value, enableDepth);
 		std::string cullfaceName;
 		READ_NAME_DATA(value, "cullface", cullfaceName);
-		//if (IsEqualIgnoreCase(cullfaceName, "front")) cullface = GL_FRONT;
+		if (IsEqualIgnoreCase(cullfaceName, "front")) cullface = GL_FRONT;
 	}
 }

@@ -28,8 +28,7 @@ namespace lady
 	{
 		int channels = 0;
 		
-		//stbi_set_flip_vertically_on_load(true);
-
+		stbi_set_flip_vertically_on_load(true);
 		unsigned char* data = stbi_load(filename.c_str(), &m_size.x, &m_size.y, &channels, 0);
 
 		if (!data)
