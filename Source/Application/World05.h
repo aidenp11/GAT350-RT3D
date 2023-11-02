@@ -19,6 +19,7 @@ namespace lady
 		float m_time;
 		float m_speed = 5;
 
+		float m_refraction{ 1 };
 		glm::vec3 m_ambientLight = glm::vec3( 0.2f );
 	};
 }
