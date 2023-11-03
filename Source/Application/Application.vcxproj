@@ -172,6 +172,7 @@
     <None Include="..\..\Build\Assets\Materials\reflection.mtrl" />
     <None Include="..\..\Build\Assets\Materials\refraction.mtrl" />
     <None Include="..\..\Build\Assets\Materials\skybox.mtrl" />
+    <None Include="..\..\Build\Assets\Materials\skybox1.mtrl" />
     <None Include="..\..\Build\Assets\Materials\squirrel.mtrl" />
     <None Include="..\..\Build\Assets\Scenes\scene.json" />
     <None Include="..\..\Build\Assets\Shaders\cubemap.frag" />

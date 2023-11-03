@@ -13,7 +13,7 @@
 				{
 					"type": "ModelRenderComponent",
 					"modelName": "models/cube.obj",
-					"materialName": "materials/skybox.mtrl",
+					"materialName": "materials/skybox1.mtrl",
 					"enableDepth": false,
 					"cullface":  "front"
 				}
@@ -22,6 +22,40 @@
 		{
 			"type": "Actor",
 			"name": "actor1",
+			"persistent": true,
+			"transform": {
+				"position": [ 0, 0, 0 ],
+				"scale": [ 1, 1, 1 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "ModelRenderComponent",
+					"modelName": "models/ogre.obj",
+					"materialName": "materials/ogre.mtrl"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "actor2",
+			"persistent": true,
+			"transform": {
+				"position": [ 0, 0, 0 ],
+				"scale": [ 1, 1, 1 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "ModelRenderComponent",
+					"modelName": "models/ogre.obj",
+					"materialName": "materials/reflection.mtrl"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "actor3",
 			"persistent": true,
 			"transform": {
 				"position": [ 0, 0, 0 ],
