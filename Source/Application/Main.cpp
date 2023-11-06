@@ -6,6 +6,7 @@
 #include "Core/Core.h"
 #include "Framework/Framework.h"
 #include "Renderer/Renderer.h"
+#include "Core/StringUtils.h"
 
 using namespace std;
 
@@ -18,6 +19,12 @@ int main(int argc, char* argv[])
 	lady::setFilePath("assets");
 
 	ENGINE.Initialize();
+
+	cout << lady::ToUpper("FoRtNiTe") + '\n';
+	cout << lady::ToLower("FoRtNiTe") + '\n';
+	cout << lady::CreateUnique("fortnite") + '\n';
+	cout << lady::CreateUnique("fortnite") + '\n';
+	cout << lady::IsEqualIgnoreCase("fortnite", "FoRtNiTe") + '\n';
 
 	auto world = make_unique<lady::World05>();
 	world->Initialize();

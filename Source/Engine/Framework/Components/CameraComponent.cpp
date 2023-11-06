@@ -25,7 +25,7 @@ namespace lady
 		// view = glm::lookAt(<owner transform position>, <owner transform position + owner transform forward>, <up vector>);
 		// set projection matrix with glm::perspective function (fov is in degrees, convert to radians)
 		// projection = glm::perspective(<parameters>);
-		view = glm::lookAt(m_owner->transform.position, m_owner->transform.position + m_owner->transform.Forward(), { 0, 1, 0 });
+		view = glm::lookAt(m_owner->transform.position, m_owner->transform.position + m_owner->transform.Forward(), m_owner->transform.Up());
 		projection = glm::perspective(fov, aspect, near, far);
 
 	}

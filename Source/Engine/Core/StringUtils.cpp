@@ -25,8 +25,11 @@ namespace lady
 
 		return ToUpper(s1) == ToUpper(s2);
 	}
+
 	std::string CreateUnique(const std::string& s)
 	{
-		return std::string();
+		static uint32_t unique = 0;
+
+		return s + std::to_string(unique++);
 	}
 }

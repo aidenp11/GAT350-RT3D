@@ -12,13 +12,12 @@ namespace lady
 	{
 		if (!modelName.empty())
 		{
-			m_model = std::make_shared<Model>();
-			m_model->Load(modelName);
+			m_model = GET_RESOURCE(Model, modelName);
 			//ADD_RESOURCE(modelName, model);
 		}
 		if (m_model && !materialName.empty())
 		{
-			m_model->SetMaterial(GET_RESOURCE(Material, materialName));
+			m_material = GET_RESOURCE(Material, materialName);
 		}
 
 		return true;
@@ -31,9 +30,8 @@ namespace lady
 
 	void ModelRenderComponent::Draw(Renderer& renderer)
 	{
-		auto material = m_model->GetMaterial();
-		material->Bind();
-		material->GetProgram()->SetUniform("model", m_owner->transform.GetMatrix());
+		m_material->Bind();
+		m_material->GetProgram()->SetUniform("model", m_owner->transform.GetMatrix());
 
 		glDepthMask(enableDepth);
 		glCullFace(cullface);

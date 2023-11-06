@@ -47,11 +47,18 @@ namespace lady
             auto actor = CREATE_CLASS(Actor);
             actor->name = "camera1";
             actor->transform.position = glm::vec3{ 0, 0, 3 };
-            actor->transform.rotation = glm::vec3{ 0, 180, 0 };
+            actor->transform.rotation = glm::radians(glm::vec3{ 0, 180, 0 });
 
             auto cameraComponent = CREATE_CLASS(CameraComponent);
             cameraComponent->SetPerspective(70.0f, ENGINE.GetSystem<Renderer>()->GetWidth() / (float)ENGINE.GetSystem<Renderer>()->GetHeight(), 0.1f, 100.0f);
             actor->AddComponent(std::move(cameraComponent));
+
+            auto cameraController = CREATE_CLASS(CameraController);
+            cameraController->speed = 2;
+            cameraController->sensitivity = 2;
+            cameraController->m_owner = actor.get();
+            cameraController->Initialize();
+            actor->AddComponent(std::move(cameraController));
 
             m_scene->Add(std::move(actor));
         }
@@ -72,8 +79,8 @@ namespace lady
 
         //m_transform.rotation.z += 180 * dt;
 
-        auto actor = m_scene->GetActorByName<Actor>("actor1");
-
+       auto actor = m_scene->GetActorByName<Actor>("actor1");
+       /*
         actor->transform.position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_A) ? m_speed * -dt : 0;
         actor->transform.position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_D) ? m_speed * dt : 0;
         actor->transform.position.y += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_E) ? m_speed * -dt : 0;
@@ -85,11 +92,11 @@ namespace lady
         actor->transform.rotation.y += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_G) ? 50 * m_speed * dt : 0;
         actor->transform.rotation.y += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_B) ? 50 * m_speed * -dt : 0;
         actor->transform.rotation.z += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_H) ? 50 * m_speed * dt : 0;
-        actor->transform.rotation.z += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_N) ? 50 * m_speed * -dt : 0;
+        actor->transform.rotation.z += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_N) ? 50 * m_speed * -dt : 0;*/
 
         m_time += dt;
 
-        auto material = actor->GetComponent<ModelRenderComponent>()->m_model->GetMaterial();
+        auto material = actor->GetComponent<ModelRenderComponent>()->m_material;
 
         //m_material->ProcessGui();
         //m_material->Bind();

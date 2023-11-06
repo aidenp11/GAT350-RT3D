@@ -19,9 +19,8 @@ namespace lady
         //m_model->Load("models/plane.obj", glm::vec3{ 0 }, glm::vec3{ 0, 0, 0 });
 
         //m_material = GET_RESOURCE(Material, "materials/quad.mtrl");
-        auto material = GET_RESOURCE(Material, "materials/squirrel.mtrl");
+        m_material = GET_RESOURCE(Material, "materials/squirrel.mtrl");
         m_model = std::make_shared<Model>();
-        m_model->SetMaterial(material);
         m_model->Load("models/squirrel.glb", glm::vec3{ 0, -0.7f, 0 }, glm::vec3{ 0 }, glm::vec3{ 0.4f });
 
         for (int i = 0; i < 3; i++)
@@ -47,7 +46,7 @@ namespace lady
     {
         ENGINE.GetSystem<Gui>()->BeginFrame();
 
-        auto material = m_model->GetMaterial();
+        //auto material = m_material;
 
        
 
@@ -99,35 +98,35 @@ namespace lady
 
         //m_material->ProcessGui();
         //m_material->Bind();
-        material->ProcessGui();
-        material->Bind();
+        m_material->ProcessGui();
+        m_material->Bind();
 
         for (int i = 0; i < 3; i++)
         {
             std::string name = "lights[" + std::to_string(i) + "]";
 
             //m_material->GetProgram()->SetUniform("model", m_transform.GetMatrix());
-            material->GetProgram()->SetUniform(name + ".type", m_lights[i].type);
-            material->GetProgram()->SetUniform(name + ".color", m_lights[i].color);
-            material->GetProgram()->SetUniform(name + ".intensity", m_lights[i].intensity);
-            material->GetProgram()->SetUniform(name + ".range", m_lights[i].range);
-            material->GetProgram()->SetUniform(name + ".innerAngle", glm::radians(m_lights[i].innerAngle));
-            material->GetProgram()->SetUniform(name + ".outerAngle", glm::radians(m_lights[i].outerAngle));
-            material->GetProgram()->SetUniform(name + ".position", m_lights[i].position);
-            material->GetProgram()->SetUniform(name + ".direction", glm::normalize(m_lights[i].direction));
+            m_material->GetProgram()->SetUniform(name + ".type", m_lights[i].type);
+            m_material->GetProgram()->SetUniform(name + ".color", m_lights[i].color);
+            m_material->GetProgram()->SetUniform(name + ".intensity", m_lights[i].intensity);
+            m_material->GetProgram()->SetUniform(name + ".range", m_lights[i].range);
+            m_material->GetProgram()->SetUniform(name + ".innerAngle", glm::radians(m_lights[i].innerAngle));
+            m_material->GetProgram()->SetUniform(name + ".outerAngle", glm::radians(m_lights[i].outerAngle));
+            m_material->GetProgram()->SetUniform(name + ".position", m_lights[i].position);
+            m_material->GetProgram()->SetUniform(name + ".direction", glm::normalize(m_lights[i].direction));
         }
         
-            material->GetProgram()->SetUniform("model", m_transform.GetMatrix());
-            material->GetProgram()->SetUniform("ambientLight", m_ambientLight);
+            m_material->GetProgram()->SetUniform("model", m_transform.GetMatrix());
+            m_material->GetProgram()->SetUniform("ambientLight", m_ambientLight);
         //view matrix
         glm::mat4 view = glm::lookAt(glm::vec3{ 0, 4, 5 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 1, 0 });
         //m_material->GetProgram()->SetUniform("view", view);
-        material->GetProgram()->SetUniform("view", view);
+        m_material->GetProgram()->SetUniform("view", view);
         
         // projection matrix
         glm::mat4 projection = glm::perspective(glm::radians(90.0f), 800.0f / 600.0f, 0.1f, 100.0f);
         //m_material->GetProgram()->SetUniform("projection", projection);
-        material->GetProgram()->SetUniform("projection", projection);
+        m_material->GetProgram()->SetUniform("projection", projection);
 
         ENGINE.GetSystem<Gui>()->EndFrame();
     }
@@ -141,6 +140,7 @@ namespace lady
         // render
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        m_material->Bind();
         m_model->Draw(GL_TRIANGLES);
         ENGINE.GetSystem<Gui>()->Draw();
         // post-render

@@ -41,7 +41,7 @@
 			"name": "actor2",
 			"persistent": true,
 			"transform": {
-				"position": [ 0, 0, 0 ],
+				"position": [ 1, 0, 0 ],
 				"scale": [ 1, 1, 1 ],
 				"rotation": [ 0, 0, 0 ]
 			},
@@ -58,7 +58,7 @@
 			"name": "actor3",
 			"persistent": true,
 			"transform": {
-				"position": [ 0, 0, 0 ],
+				"position": [ -1, 0, 0 ],
 				"scale": [ 1, 1, 1 ],
 				"rotation": [ 0, 0, 0 ]
 			},
