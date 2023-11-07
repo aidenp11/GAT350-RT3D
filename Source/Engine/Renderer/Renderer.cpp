@@ -68,6 +68,7 @@ namespace lady
 
 	void Renderer::BeginFrame()
 	{
+		glDepthMask(GL_TRUE);
 		glClearColor(0, 0, 0, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
@@ -100,6 +101,16 @@ namespace lady
 	void Renderer::DrawPoint(float x, float y)
 	{
 		SDL_RenderDrawPointF(m_renderer, x, y);
+	}
+
+	void Renderer::SetViewPort(int width, int height)
+	{
+		glViewport(0, 0, width, height);
+	}
+
+	void Renderer::ResetViewPort()
+	{
+		glViewport(0, 0, m_width, m_height);
 	}
 
 	void APIENTRY DebugCallback(GLenum source, GLenum type, GLuint id,
