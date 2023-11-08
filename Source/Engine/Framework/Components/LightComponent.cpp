@@ -1,5 +1,6 @@
 #include "LightComponent.h"
 #include "Framework/Actor.h"
+#include "Core/StringUtils.h"
 
 namespace lady
 {
@@ -49,5 +50,16 @@ namespace lady
 	void LightComponent::Read(const lady::json_t& value)
 	{
 		// read json file
+		std::string lightTypeName;
+		READ_NAME_DATA(value, "lightType", lightTypeName);
+		if (IsEqualIgnoreCase(lightTypeName, "point")) type = eType::Point;
+		if (IsEqualIgnoreCase(lightTypeName, "directional")) type = eType::Directional;
+		if (IsEqualIgnoreCase(lightTypeName, "spot")) type = eType::Spot;
+
+		READ_DATA(value, color);
+		READ_DATA(value, intensity);
+		READ_DATA(value, range);
+		READ_DATA(value, innerAngle);
+		READ_DATA(value, outerAngle);
 	}
 }

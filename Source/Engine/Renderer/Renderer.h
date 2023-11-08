@@ -8,6 +8,7 @@
 #include "Program.h"
 #include "GUI.h"
 #include "VertexBuffer.h"
+#include "Framebuffer.h"
 #include "Material.h"
 
 #include <glad/include/glad/glad.h>
@@ -28,7 +29,7 @@ namespace lady
 		void Update() {}
 
 		void CreateWindow(const std::string& title, int width, int height);
-		void BeginFrame();
+		void BeginFrame(const glm::vec3 color = glm::vec3{ 0 });
 		void EndFrame();
 
 		void SetColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
