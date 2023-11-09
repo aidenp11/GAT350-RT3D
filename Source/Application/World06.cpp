@@ -18,14 +18,14 @@ namespace lady
         m_scene->Initialize();
 
         auto texture = std::make_shared<Texture>();
-        texture->CreateTexture(512, 512);
+        texture->CreateTexture(1024, 1024);
         ADD_RESOURCE("fb_texture", texture);
 
         auto framebuffer = std::make_shared<Framebuffer>();
         framebuffer->CreateFramebuffer(texture);
         ADD_RESOURCE("fb", framebuffer);
 
-        auto material = GET_RESOURCE(Material, "materials/framebuffer.mtrl");
+        auto material = GET_RESOURCE(Material, "materials/postprocess.mtrl");
         if (material)
         {
             material->albedoTexture = texture;
@@ -65,7 +65,29 @@ namespace lady
 
         m_scene->Update(dt);
         m_scene->ProcessGui();
-        
+        ImGui::Begin("Postprocess");
+        ImGui::SliderFloat("Blend", &m_blend, 0, 1);
+        bool effect = params & INVERT_MASK;
+        if (ImGui::Checkbox("Invert", &effect))
+        {
+            if (effect) params |= INVERT_MASK;
+            else params ^= INVERT_MASK;
+        }
+        effect = params & GRAYSCALE_MASK;
+        if (ImGui::Checkbox("Grayscale", &effect))
+        {
+            if (effect) params |= GRAYSCALE_MASK;
+            else params ^= GRAYSCALE_MASK;
+        }
+        ImGui::End();
+
+        auto program = GET_RESOURCE(Program, "shaders/postprocess.prog");
+        if (program)
+        {
+            program->Use();
+            program->SetUniform("blend", m_blend);
+            program->SetUniform("params", params);
+        }
 
         ENGINE.GetSystem<Gui>()->EndFrame();
     }
@@ -73,7 +95,7 @@ namespace lady
     void World06::Draw(Renderer& renderer)
     {
         // *** PASS 1 ***
-        m_scene->GetActorByName("cube")->active = false;
+        m_scene->GetActorByName("postprocess")->active = false;
 
         auto framebuffer = GET_RESOURCE(Framebuffer, "fb");
         renderer.SetViewPort(framebuffer->GetSize().x, framebuffer->GetSize().y);
@@ -85,11 +107,11 @@ namespace lady
         framebuffer->Unbind();
 
         // *** PASS 2 ***
-        m_scene->GetActorByName("cube")->active = true;
+        m_scene->GetActorByName("postprocess")->active = true;
 
         renderer.ResetViewPort();
         renderer.BeginFrame();
-        m_scene->Draw(renderer);
+        m_scene->GetActorByName("postprocess")->Draw(renderer);
         
         ENGINE.GetSystem<Gui>()->Draw();
         renderer.EndFrame();

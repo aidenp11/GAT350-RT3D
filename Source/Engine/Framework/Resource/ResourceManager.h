@@ -1,6 +1,7 @@
 #pragma once
 #include "Resource.h"
 #include "Core/Logger.h"
+#include "Core/StringUtils.h"
 #include "Framework/Singleton.h"
 #include <map>
 #include <memory>
@@ -48,24 +49,26 @@ namespace lady
 	template<typename T, typename ...TArgs>
 	inline res_t<T> ResourceManager::Get(const std::string& filename, TArgs ...args)
 	{
+		std::string lfilename = ToLower(filename);
+
 		// find resource in resources map
-		if (m_resources.find(filename) != m_resources.end())
+		if (m_resources.find(lfilename) != m_resources.end())
 		{
 			// return resource
-			return std::dynamic_pointer_cast<T>(m_resources[filename]);
+			return std::dynamic_pointer_cast<T>(m_resources[lfilename]);
 		}
 
 		// resource not in resources map, create resource
 		res_t<T> resource = std::make_shared<T>();
-		if (!resource->Create(filename, args...))
+		if (!resource->Create(lfilename, args...))
 		{
 			// resource not created
-			WARNING_LOG("Could not create resource: " << filename);
+			WARNING_LOG("Could not create resource: " << lfilename);
 			return res_t<T>();
 		}
 
 		// add resource to resource map, return resource
-		Add(filename, resource);
+		Add(lfilename, resource);
 		//m_resources[filename] = resource;
 		return resource;
 	}

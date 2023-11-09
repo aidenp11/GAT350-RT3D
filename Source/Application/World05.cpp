@@ -44,7 +44,7 @@ namespace lady
         //    m_scene->Add(std::move(actor));
         //}
 
-        {
+        /*{
             auto actor = CREATE_CLASS(Actor);
             actor->name = "camera1";
             actor->transform.position = glm::vec3{ 0, 0, 3 };
@@ -62,7 +62,7 @@ namespace lady
             actor->AddComponent(std::move(cameraController));
 
             m_scene->Add(std::move(actor));
-        }
+        }*/
 
         for (int i = 0; i < 50; i++)
         {

@@ -22,6 +22,30 @@
 		},
 		{
 			"type": "Actor",
+			"name": "camera1",
+			"persistent": true,
+			"active": true,
+			"transform": {
+				"position": [ 0, 0, 3 ],
+				"rotation": [ 0, 180, 0 ]
+			},
+			"components": [
+				{
+					"type": "CameraComponent",
+					"fov": 70,
+					"aspect": 0,
+					"near": 0.1,
+					"far":  100
+				},
+        {
+          "type": "CameraController",
+          "sensitivity": 2,
+          "speed": 2
+        }
+			]
+		},
+		{
+			"type": "Actor",
 			"name": "skybox",
 			"persistent": true,
 			"transform": {
