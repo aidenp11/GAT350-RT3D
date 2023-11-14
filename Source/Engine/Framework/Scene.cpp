@@ -25,32 +25,27 @@ namespace lady
 	void Scene::Draw(Renderer& renderer)
 	{
 		// get light components
-		std::vector<LightComponent*> lights;
-		for (auto& actor : m_actors)
-		{
-			if (!actor->active) continue;
+		auto lights = GetComponents<LightComponent>();
+		
+		// get camera components
+		auto cameras = GetComponents<CameraComponent>();
 
-			auto component = actor->GetComponent<LightComponent>();
-			if (component)
-			{
-				lights.push_back(component);
-			}
-		}
+		CameraComponent* camera = (!cameras.empty()) ? cameras[0] : nullptr;
 
 		// get all shader programs in the resource system
-		auto programs = ResourceManager::Instance().GetAllOfType<Program>();
+		auto programs = GET_RESOURCES(Program);
 		// set all shader programs camera and lights uniforms
 		for (auto& program : programs)
 		{
 			program->Use();
+
+			if (camera) camera->SetProgram(program);
 
 			// set lights in shader program
 			int index = 0;
 			for (auto light : lights)
 			{
 				std::string name = "lights[" + std::to_string(index++) + "]";
-
-
 
 				light->SetProgram(program, name);
 			}
@@ -61,27 +56,26 @@ namespace lady
 			program->SetUniform("ambientLight", ambientColor);
 		}
 
-		// get camera component
-		CameraComponent* camera = nullptr;
-		for (auto& actor : m_actors)
-		{
-			if (!actor->active) continue;
+		//// get camera component
+		//for (auto& actor : m_actors)
+		//{
+		//	if (!actor->active) continue;
 
-			camera = actor.get()->GetComponent<CameraComponent>();
-			//<if camera is valid, break out of for loop>
-			if (camera) break;
-		}
+		//	camera = actor.get()->GetComponent<CameraComponent>();
+		//	//<if camera is valid, break out of for loop>
+		//	if (camera) break;
+		//}
 
-		// get all shader programs in the resource system
-		//auto programs = ResourceManager::Instance().GetAllOfType<Program>();
-		// set all shader programs camera and lights uniforms
-		for (auto& program : programs)
-		{
-			program->Use();
+		//// get all shader programs in the resource system
+		////auto programs = ResourceManager::Instance().GetAllOfType<Program>();
+		//// set all shader programs camera and lights uniforms
+		//for (auto& program : programs)
+		//{
+		//	program->Use();
 
-			// set camera in shader program
-			if (camera) camera->SetProgram(program);
-		}
+		//	// set camera in shader program
+		//	if (camera) camera->SetProgram(program);
+		//}
 
 
 		for (auto& actor : m_actors)
