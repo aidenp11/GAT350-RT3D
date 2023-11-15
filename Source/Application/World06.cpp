@@ -79,6 +79,39 @@ namespace lady
             if (effect) params |= GRAYSCALE_MASK;
             else params ^= GRAYSCALE_MASK;
         }
+        effect = params & TINT_MASK;
+        if (ImGui::Checkbox("Tint", &effect))
+        {
+            if (effect)
+            {
+                params |= TINT_MASK;
+            }
+            else params ^= TINT_MASK;
+        }
+        ImGui::ColorEdit3("Tint Color", glm::value_ptr(tintColor));
+        effect = params & GRAIN_MASK;
+        if (ImGui::Checkbox("Grain", &effect))
+        {
+            if (effect) params |= GRAIN_MASK;
+            else params ^= GRAIN_MASK;
+        }
+        ImGui::DragFloat("Grain Amount", &grainAmount, 0.01f);
+        effect = params & SCANLINE_MASK;
+        if (ImGui::Checkbox("Scanline", &effect))
+        {
+            if (effect) params |= SCANLINE_MASK;
+            else params ^= SCANLINE_MASK;
+        }
+        ImGui::DragFloat("Scanline Intensity", &scanlineIntensity, 0.01f);
+        effect = params & CUSTOM_MASK;
+        if (ImGui::Checkbox("Custom", &effect))
+        {
+            if (effect) params |= CUSTOM_MASK;
+            else params ^= CUSTOM_MASK;
+        }
+        ImGui::DragFloat("Kernel", &kernel, 0.1f);
+        ImGui::DragFloat("Texel Size X", &texelSizeX, 0.1f);
+        ImGui::DragFloat("Texel Size Y", &texelSizeY, 0.1f);
         ImGui::End();
 
         auto program = GET_RESOURCE(Program, "shaders/postprocess.prog");
@@ -87,6 +120,12 @@ namespace lady
             program->Use();
             program->SetUniform("blend", m_blend);
             program->SetUniform("params", params);
+            program->SetUniform("tintColor", tintColor);
+            program->SetUniform("grainAmount", grainAmount);
+            program->SetUniform("scanlineIntensity", scanlineIntensity);
+            program->SetUniform("kernel", kernel);
+            program->SetUniform("texelSizeX", texelSizeX);
+            program->SetUniform("texelSizeY", texelSizeY);
         }
 
         ENGINE.GetSystem<Gui>()->EndFrame();
