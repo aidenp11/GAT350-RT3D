@@ -227,5 +227,8 @@
     <None Include="..\..\Build\Assets\Shaders\shadow_depth.prog">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="..\..\Build\Assets\Materials\uilight.mtrl">
+      <Filter>Materials</Filter>
+    </None>
   </ItemGroup>
 </Project>

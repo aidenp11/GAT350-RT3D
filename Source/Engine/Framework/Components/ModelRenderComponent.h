@@ -12,14 +12,15 @@ namespace lady
 		bool Initialize() override;
 		void Update(float dt) override;
 		void Draw(class Renderer& renderer) override;
-
-		//virtual float GetRadius() override { return m_model->GetRadius(); }
+		void ProcessGui() override;
 
 	public:
 		std::string modelName;
 		std::string materialName;
 		res_t<Model> m_model;
 		res_t<Material> m_material;
+
+		bool castShadow = true;
 		bool enableDepth = true;
 		GLint cullface = GL_BACK;
 	};

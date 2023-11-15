@@ -25,6 +25,8 @@ namespace lady
 
 	void ModelRenderComponent::Update(float dt)
 	{
+		ImGui::Checkbox("Cast Shadow", &castShadow);
+		ImGui::Checkbox("Enable Depth", &enableDepth); 
 
 	}
 
@@ -39,12 +41,18 @@ namespace lady
 		m_model->Draw();
 	}
 
+	void ModelRenderComponent::ProcessGui()
+	{
+	}
+
 	void ModelRenderComponent::Read(const json_t& value)
 	{
 		READ_DATA(value, modelName);
 		READ_DATA(value, materialName);
 
 		READ_DATA(value, enableDepth);
+		READ_DATA(value, castShadow);
+
 		std::string cullfaceName;
 		READ_NAME_DATA(value, "cullface", cullfaceName);
 		if (IsEqualIgnoreCase(cullfaceName, "front")) cullface = GL_FRONT;

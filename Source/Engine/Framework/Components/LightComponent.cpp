@@ -29,6 +29,7 @@ namespace lady
 		if (castShadow)
 		{
 			program->SetUniform("shadowVP", GetShadowMatrix());
+			program->SetUniform("shadowBias", shadowBias);
 		}
 	}
 
@@ -51,7 +52,14 @@ namespace lady
 		ImGui::Checkbox("Cast Shadow", &castShadow);
 		if (castShadow)
 		{
+			glm::mat4 bias = glm::mat4(
+				glm::vec4(0.5f, 0.0f, 0.0f, 0.0f),
+				glm::vec4(0.0f, 0.5f, 0.0f, 0.0f),
+				glm::vec4(0.0f, 0.0f, 0.5f, 0.0f),
+				glm::vec4(0.5f, 0.5f, 0.5f, 1.0f));
+
 			ImGui::DragFloat("Shadow Size", &shadowSize, 0.1f, 1, 60);
+			ImGui::DragFloat("Shadow Bias", &shadowBias, 0.001f, 0, 1);
 		}
 
 
