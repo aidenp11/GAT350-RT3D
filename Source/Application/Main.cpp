@@ -4,6 +4,7 @@
 #include "World04.h"
 #include "World05.h"
 #include "World06.h"
+#include "World07.h"
 #include "Core/Core.h"
 #include "Framework/Framework.h"
 #include "Renderer/Renderer.h"
@@ -27,7 +28,7 @@ int main(int argc, char* argv[])
 	cout << lady::CreateUnique("fortnite") + '\n';
 	cout << lady::IsEqualIgnoreCase("fortnite", "FoRtNiTe") + '\n';
 
-	auto world = make_unique<lady::World06>();
+	auto world = make_unique<lady::World07>();
 	world->Initialize();
 
 	// main loop

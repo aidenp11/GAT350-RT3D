@@ -1,16 +1,21 @@
 #pragma once
 #include "Component.h"
 #include "Renderer/Program.h"
-#include "Renderer/Renderer.h"
 
 namespace lady
 {
 	class CameraComponent : public Component
 	{
 	public:
+		enum eProjectionType
+		{
+			Perspective,
+			Orthographic
+		};
+	public:
 		CLASS_DECLARATION(CameraComponent)
 
-		bool Initialize() override;
+			bool Initialize() override;
 		void Update(float dt) override;
 		void ProcessGui() override;
 
@@ -22,11 +27,13 @@ namespace lady
 	public:
 		glm::mat4 projection{ 1 };
 		glm::mat4 view{ 1 };
-		res_t<Renderer> m_renderer;
 
 		float fov = 70.0f;
-		float aspect = 0.0f;
+		float aspect = 0;
 		float near = 0.1f;
 		float far = 100.0f;
+
+		eProjectionType projectionType = Perspective;
+		float size = 8;
 	};
 }

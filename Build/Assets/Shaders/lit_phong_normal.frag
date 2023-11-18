@@ -82,7 +82,7 @@ void phong (in Light light, in vec3 position, in vec3 normal, out vec3 diffuse, 
 		//phong
 		//vec3 reflection = reflect(-lightDir, normal);
 		//intensity = max(dot(reflection, viewDir), 0);
-		//blin-phong
+		//blinn-phong
 		vec3 h = viewDir + lightDir;
 		intensity = max(dot(h, normal), 0);
 

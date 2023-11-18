@@ -1,0 +1,97 @@
+{
+	"actors": [
+		{
+			"type": "Actor",
+			"name": "camera",
+			"persistent": true,
+			"transform": {
+				"position": [ 0, 2, 3 ],
+				"rotation": [ 0, 180, 0 ]
+			},
+			"components": [
+				{
+					"type": "CameraComponent",
+					"fov": 70.0,
+					"near": 0.1,
+					"far": 100.0
+				},
+				{
+					"type": "CameraController",
+					"speed": 2.0,
+					"sensitivity": 1
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "light1",
+			"persistent": true,
+			"active": true,
+			"transform": {
+				"position": [ 3, 3, 3 ],
+				"lightType": "point",
+				"color": [ 1, 1, 1 ],
+				"intensity": 1,
+				"range": 20,
+				"innerAngle": 10,
+				"outerAngle": 30
+			},
+			"components": [
+				{
+					"type": "LightComponent"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "hut",
+			"persistent": true,
+			"transform": {
+				"position": [ -1, -0.15, 0 ],
+				"scale": [ 0.05, 0.05, 0.05 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "ModelRenderComponent",
+					"modelName": "fantasy/obj/SF_Bld_WitchesHut_01.obj",
+					"materialName": "fantasy/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "house",
+			"persistent": true,
+			"transform": {
+				"position": [ 0, -0.15, 0 ],
+				"scale": [ 0.05, 0.05, 0.05 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "ModelRenderComponent",
+					"modelName": "fantasy/obj/SF_Bld_Elven_House_01.obj",
+					"materialName": "fantasy/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "ground",
+			"persistent": true,
+			"transform": {
+				"position": [ -5, 0, 3 ],
+				"scale": [ 1, 1, 1 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "ModelRenderComponent",
+					"modelName": "fantasy/obj/SF_Env_Tile_Grass_01.obj",
+					"materialName": "fantasy/fantasy.mtrl"
+				}
+			]
+		}
+	]
+}
