@@ -17,6 +17,8 @@ namespace lady
         m_scene->Load("scenes/sceneshadow.json");
         m_scene->Initialize();
 
+        m_editor = std::make_unique<Editor>();
+
         auto texture = std::make_shared<Texture>();
         texture->CreateTexture(1024, 1024);
         ADD_RESOURCE("fb_texture", texture);
@@ -43,7 +45,8 @@ namespace lady
         ENGINE.GetSystem<Gui>()->BeginFrame();
 
         m_scene->Update(dt);
-        m_scene->ProcessGui();
+
+        m_editor->ProcessGui(m_scene.get());
 
         ENGINE.GetSystem<Gui>()->EndFrame();
     }

@@ -43,6 +43,7 @@ namespace lady
 		}
 
 		m_resources[name] = resource; 
+		resource->name = name;
 
 		return true;
 	}
