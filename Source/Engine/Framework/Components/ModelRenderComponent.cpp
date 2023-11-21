@@ -25,8 +25,7 @@ namespace lady
 
 	void ModelRenderComponent::Update(float dt)
 	{
-		ImGui::Checkbox("Cast Shadow", &castShadow);
-		ImGui::Checkbox("Enable Depth", &enableDepth); 
+	
 
 	}
 

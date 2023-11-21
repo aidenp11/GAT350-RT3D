@@ -42,13 +42,20 @@ namespace lady
 
 			if (camera) camera->SetProgram(program);
 
-			// set lights in shader program
 			int index = 0;
+
 			for (auto light : lights)
+
 			{
+
 				std::string name = "lights[" + std::to_string(index++) + "]";
 
-				light->SetProgram(program, name);
+
+
+				glm::mat4 view = (camera) ? camera->view : glm::mat4(1);
+
+				light->SetProgram(program, name, view);
+
 			}
 
 

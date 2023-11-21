@@ -140,7 +140,7 @@ namespace lady
         renderer.SetViewPort(framebuffer->GetSize().x, framebuffer->GetSize().y);
         framebuffer->Bind();
 
-        renderer.BeginFrame(glm::vec3{ 1, 0, 0 });
+        renderer.BeginFrame(glm::vec3{ 1, 1, 1 });
         m_scene->Draw(renderer);
 
         framebuffer->Unbind();

@@ -30,11 +30,11 @@ namespace lady
 
         //auto material = GET_RESOURCE(Material, "materials/sprite.mtrl");
 
-        /*auto material = GET_RESOURCE(Material, "materials/postprocess.mtrl");
+        auto material = GET_RESOURCE(Material, "materials/sprite.mtrl");
         if (material)
         {
             material->albedoTexture = texture;
-        }*/
+        }
 
         //material->albedoTexture = texture;
 
