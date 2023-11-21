@@ -6,8 +6,8 @@ in layout(location = 2) vec2 vtexcoord;
 
 out layout(location = 0) vec3 oposition;
 out layout(location = 1) vec3 onormal;
-out layout(location = 2) vec2 otexcoord;
-out layout(location = 3) vec4 oshadowcoord;
+out layout(location = 3) vec2 otexcoord;
+out layout(location = 2) vec4 oshadowcoord;
 
 uniform mat4 model;
 uniform mat4 view;

@@ -11,8 +11,8 @@
 
 in layout(location = 0) vec3 fposition;
 in layout(location = 1) vec3 fnormal;
-in layout(location = 2) vec2 ftexcoord;
-in layout(location = 3) vec4 fshadowcoord;
+in layout(location = 3) vec2 ftexcoord;
+in layout(location = 2) vec4 fshadowcoord;
 
 out layout(location = 0) vec4 ocolor;
 
