@@ -66,7 +66,7 @@
 				{
 					"type": "ModelRenderComponent",
 					"modelName": "models/ogre.obj",
-					"materialName": "materials/ogre.mtrl"
+					"materialName": "materials/ogre_cel.mtrl"
 				}
 			]
 		},
@@ -83,7 +83,7 @@
 				{
 					"type": "ModelRenderComponent",
 					"modelName": "fantasy/obj/SF_Bld_WitchesHut_01.obj",
-					"materialName": "fantasy/fantasy.mtrl"
+					"materialName": "materials/fantasy_cel.mtrl"
 				}
 			]
 		},
@@ -100,7 +100,7 @@
 				{
 					"type": "ModelRenderComponent",
 					"modelName": "fantasy/obj/SF_Bld_Elven_House_01.obj",
-					"materialName": "fantasy/fantasy.mtrl"
+					"materialName": "materials/fantasy_cel.mtrl"
 				}
 			]
 		},

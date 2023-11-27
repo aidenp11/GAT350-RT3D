@@ -4,7 +4,7 @@ INFO: Factory.h(74) Class registered: EnginePhysicsComponent
 INFO: Factory.h(74) Class registered: CameraController
 INFO: Factory.h(74) Class registered: CameraComponent
 INFO: Factory.h(74) Class registered: Actor
-INFO: Main.cpp(17) Initialize Engine...
+INFO: Main.cpp(18) Initialize Engine...
 INFO: Factory.h(82) Prototype Class registered: Camera
 INFO: Factory.h(82) Prototype Class registered: Light
 INFO: Factory.h(82) Prototype Class registered: Sphere
