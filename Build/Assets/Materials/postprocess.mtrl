@@ -1,22 +1,4 @@
 {
   "program": "shaders/postprocess.prog",
-  "albedoTexture": "textures/color_grid.png",
-  "albedo": [
-    1,
-    1,
-    1
-  ],
-  "specular": [
-    0,
-    0,
-    0
-  ],
-  "emissive": [
-    0,
-    0,
-    0
-  ],
-  "shininess":  60,
-  "tiling": [ 1, 1 ],
-  "offset": [ 0, 0 ]
+  "albedoTexture": "textures/color_grid.png"
 }

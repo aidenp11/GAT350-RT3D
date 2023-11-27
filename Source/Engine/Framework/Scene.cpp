@@ -40,19 +40,15 @@ namespace lady
 		{
 			program->Use();
 
-			if (camera) camera->SetProgram(program);
+			//if (camera) camera->SetProgram(program);
 
 			int index = 0;
 
 			for (auto light : lights)
 
 			{
-
-				std::string name = "lights[" + std::to_string(index++) + "]";
-
-
-
 				glm::mat4 view = (camera) ? camera->view : glm::mat4(1);
+				std::string name = "lights[" + std::to_string(index++) + "]";
 
 				light->SetProgram(program, name, view);
 
@@ -77,13 +73,13 @@ namespace lady
 		//// get all shader programs in the resource system
 		////auto programs = ResourceManager::Instance().GetAllOfType<Program>();
 		//// set all shader programs camera and lights uniforms
-		//for (auto& program : programs)
-		//{
-		//	program->Use();
+		for (auto& program : programs)
+		{
+			program->Use();
 
 		//	// set camera in shader program
-		//	if (camera) camera->SetProgram(program);
-		//}
+			if (camera) camera->SetProgram(program);
+		}
 
 
 		for (auto& actor : m_actors)

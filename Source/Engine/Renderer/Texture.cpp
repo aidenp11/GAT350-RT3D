@@ -79,7 +79,36 @@ namespace lady
 		GLfloat border[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		glTexParameterfv(m_target, GL_TEXTURE_BORDER_COLOR, border);
 
+
+		glTexParameteri(m_target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(m_target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
 		return true;
+
+		//m_target = GL_TEXTURE_2D;
+		//m_size = glm::vec2{ width, height };
+
+
+
+		//glGenTextures(1, &m_texture);
+		//glBindTexture(m_target, m_texture);
+
+
+
+		//// create texture (width, height)
+		//glTexImage2D(m_target, 0, GL_DEPTH_COMPONENT24, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+
+
+
+		//// set parameters for shadow map
+		//glTexParameteri(m_target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		//glTexParameteri(m_target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		//glTexParameteri(m_target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		//glTexParameteri(m_target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+
+
+		//return true;
 	}
 
 	bool Texture::Load(const std::string& filename, Renderer& renderer)

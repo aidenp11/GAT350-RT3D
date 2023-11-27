@@ -25,10 +25,9 @@ namespace lady
 
 		glm::vec3 direction = glm::vec3(view * glm::vec4(m_owner->transform.Forward(), 0));
 
-		program->SetUniform(name + ".direction", direction);
 		program->SetUniform(name + ".type", type);
-		program->SetUniform(name + ".position", m_owner->transform.position);
-		program->SetUniform(name + ".direction", m_owner->transform.Forward());
+		program->SetUniform(name + ".position", position);
+		program->SetUniform(name + ".direction", direction);
 		program->SetUniform(name + ".color", color);
 		program->SetUniform(name + ".intensity", intensity);
 		program->SetUniform(name + ".range", range);
@@ -37,7 +36,12 @@ namespace lady
 
 		if (castShadow)
 		{
-			program->SetUniform("shadowVP", GetShadowMatrix());
+			glm::mat4 bias = glm::mat4(
+				glm::vec4(0.5f, 0.0f, 0.0f, 0.0f),
+				glm::vec4(0.0f, 0.5f, 0.0f, 0.0f),
+				glm::vec4(0.0f, 0.0f, 0.5f, 0.0f),
+				glm::vec4(0.5f, 0.5f, 0.5f, 1.0f));
+			program->SetUniform("shadowVP", bias * GetShadowMatrix());
 			program->SetUniform("shadowBias", shadowBias);
 		}
 	}
@@ -61,11 +65,6 @@ namespace lady
 		ImGui::Checkbox("Cast Shadow", &castShadow);
 		if (castShadow)
 		{
-			glm::mat4 bias = glm::mat4(
-				glm::vec4(0.5f, 0.0f, 0.0f, 0.0f),
-				glm::vec4(0.0f, 0.5f, 0.0f, 0.0f),
-				glm::vec4(0.0f, 0.0f, 0.5f, 0.0f),
-				glm::vec4(0.5f, 0.5f, 0.5f, 1.0f));
 
 			ImGui::DragFloat("Shadow Size", &shadowSize, 0.1f, 1, 60);
 			ImGui::DragFloat("Shadow Bias", &shadowBias, 0.001f, 0, 1);
@@ -88,8 +87,8 @@ namespace lady
 		std::string lightTypeName;
 		READ_NAME_DATA(value, "lightType", lightTypeName);
 		if (IsEqualIgnoreCase(lightTypeName, "point")) type = eType::Point;
-		if (IsEqualIgnoreCase(lightTypeName, "directional")) type = eType::Directional;
-		if (IsEqualIgnoreCase(lightTypeName, "spot")) type = eType::Spot;
+		else if (IsEqualIgnoreCase(lightTypeName, "directional")) type = eType::Directional;
+		else if (IsEqualIgnoreCase(lightTypeName, "spot")) type = eType::Spot;
 
 
 		READ_DATA(value, color);

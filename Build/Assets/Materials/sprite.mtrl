@@ -1,9 +1,9 @@
 {
-  "program": "shaders/lit_phong_normal.prog",
-  "albedoTexture": "textures/blue-wooden-chair.png",
+  "program": "shaders/unlit_sprite.prog",
+  "albedoTexture":  "textures/blue-wooden-chair.png",
   "albedo": [
-    0.6,
-    0,
+    1,
+    1,
     1
   ],
   "tiling": [ 1, 1 ],

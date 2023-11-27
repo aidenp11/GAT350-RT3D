@@ -1,5 +1,5 @@
 {
-  "program": "shaders/lit_phong.prog",
+  "program": "shaders/lit_phong_normal.prog",
   "albedoTexture": "textures/color_grid.png",
   "albedo": [
     1,

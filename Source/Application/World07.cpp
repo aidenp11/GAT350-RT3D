@@ -14,10 +14,10 @@ namespace lady
     bool World07::Initialize()
     {
         m_scene = std::make_unique<Scene>();
-        m_editor = std::make_unique<Editor>();
         m_scene->Load("scenes/scene_editor.json");
         m_scene->Load("scenes/sceneshadow.json");
         m_scene->Initialize();
+        m_editor = std::make_unique<Editor>();
 
 
         auto texture = std::make_shared<Texture>();
@@ -57,6 +57,7 @@ namespace lady
         ENGINE.GetSystem<Gui>()->BeginFrame();
 
         m_scene->Update(dt);
+       // m_scene->ProcessGui();
 
         m_editor->Update();
         m_editor->ProcessGui(m_scene.get());
@@ -107,12 +108,13 @@ namespace lady
         }
 
         auto models = m_scene->GetComponents<ModelRenderComponent>();
-        for (auto models : models)
+        for (auto model : models)
         {
-            if (models->castShadow)
+            if (model->castShadow)
             {
-                program->SetUniform("models", models->m_owner->transform.GetMatrix());
-                models->m_model->Draw();
+               // glCullFace(GL_FRONT);
+                program->SetUniform("model", model->m_owner->transform.GetMatrix());
+                model->m_model->Draw();
             }
         }
 

@@ -63,5 +63,6 @@ namespace lady
 		std::string cullfaceName;
 		READ_NAME_DATA(value, "cullface", cullfaceName);
 		if (IsEqualIgnoreCase(cullfaceName, "front")) cullface = GL_FRONT;
+		if (IsEqualIgnoreCase(cullfaceName, "none")) cullface = GL_NONE;
 	}
 }

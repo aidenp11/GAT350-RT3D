@@ -27,7 +27,7 @@ namespace lady
 		float m_time;
 		float m_speed = 5;
 		float m_blend = 1;
-		glm::vec3 tintColor;
+		glm::vec3 tintColor{ 1 };
 		float grainAmount = 0;
 		float scanlineIntensity;
 
@@ -38,6 +38,6 @@ namespace lady
 		uint32_t params{ 0 };
 
 		float m_refraction{ 1 };
-		glm::vec3 m_ambientLight = glm::vec3( 0.2f );
+		glm::vec3 m_ambientLight = glm::vec3( 1.0f );
 	};
 }

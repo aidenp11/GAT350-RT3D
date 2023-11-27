@@ -162,9 +162,9 @@ namespace lady
 		Gui::GetDialogResource<Texture>(emissiveTexture, "EmissiveTextureDialog", "Open texture", "Image file (*.png;*.jpg;*.jpeg;*.bmp;*.tga){.png,.jpg,.jpeg,.bmp,.tga},.*");
 
 		ImGui::Text("Normal  ");
-		ImGui::SameLine();
+		//ImGui::SameLine();
 		(normalTexture) ? ImGui::Text("%s", normalTexture->name.c_str()) : ImGui::Text("None");
-		Gui::GetDialogResource<Texture>(normalTexture, "NormalTextureDialog", "Open texture", "Image file (*.png;*.jpg;*.jpeg;*.bmp;*.tga){.png,.jpg,.jpeg,.bmp,.tga},.*");
+		//Gui::GetDialogResource<Texture>(normalTexture, "NormalTextureDialog", "Open texture", "Image file (*.png;*.jpg;*.jpeg;*.bmp;*.tga){.png,.jpg,.jpeg,.bmp,.tga},.*");
 		//ImGui::ColorEdit3("Albedo", glm::value_ptr(albedo));
 		//ImGui::ColorEdit3("Specular", glm::value_ptr(specular));
 		//ImGui::ColorEdit3("Emissive", glm::value_ptr(emissive));
