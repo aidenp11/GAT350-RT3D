@@ -86,7 +86,8 @@ void phong(in Light light, in vec3 position, in vec3 normal, out vec3 diffuse, o
 	}
 
 	float intensity = max(dot(lightDir, normal), 0) * spotIntensity;
-	diffuse = (light.color * intensity);
+	float cellIntensity = floor(intensity * celLevels) * celScaleFactor;
+	diffuse = (light.color * cellIntensity);
 
 	// SPECULAR
 	specular = vec3(0);
@@ -103,8 +104,6 @@ void phong(in Light light, in vec3 position, in vec3 normal, out vec3 diffuse, o
 		intensity = pow(intensity, material.shininess);
 		intensity = (intensity < celSpecularCutoff) ? 0 : 1;
 		specular = vec3(intensity * spotIntensity);
-		float cellIntensity = floor(intensity * celLevels) * celScaleFactor;
-		diffuse = (light.color * cellIntensity);
 	}
 
 }
@@ -134,11 +133,11 @@ void main()
 
 		float attenuation = (lights[i].type == DIRECTIONAL) ? 1 : attenuation(lights[i].position, fposition, lights[i].range);
 
-		vec3 normal = texture(normalTexture, ftexcoord).rgb;
-		normal = (normal * 2) - 1;  // (0 - 1) -> (-1 - +1)
-		normal = normalize(ftbn * normal);
+//		vec3 normal = texture(normalTexture, ftexcoord).rgb;
+//		normal = (normal * 2) - 1;  // (0 - 1) -> (-1 - +1)
+//		normal = normalize(ftbn * normal);
 
-		phong(lights[i], fposition, normal, diffuse, specular);
+		phong(lights[i], fposition, fnormal, diffuse, specular);
 		ocolor += ((vec4(diffuse, 1) * albedoColor) + (vec4(specular, 1)) * specularColor) * lights[i].intensity * attenuation * shadow;
 	}
 }

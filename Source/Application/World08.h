@@ -31,7 +31,7 @@ namespace lady
 		float grainAmount = 0;
 		float scanlineIntensity;
 
-		int m_celLevels = 5 ;
+		int m_celLevels = 5;
 		float m_celSpecularCutoff = 0.3f;
 		float m_celOutline = 0.3f;
 
